@@ -2,11 +2,11 @@
   "swagger": "2.0",
   "info": {
     "description": "API for Core, Composite and API Services used in the VS Web Shop",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "title": "WebShop"
   },
   "host": "virtserver.swaggerhub.com",
-  "basePath": "/p7695/WebShop/1.0.0",
+  "basePath": "/daniel93a/WebShop/1.0.1",
   "tags": [
     {
       "name": "users",
@@ -47,8 +47,8 @@
         "tags": [
           "users"
         ],
-        "summary": "Get a user profile",
-        "description": "Get a user profile by name",
+        "summary": "get all users",
+        "description": "retrieves all users",
         "operationId": "getUser",
         "consumes": [
           "application/json"
@@ -56,17 +56,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Filter option for the Users",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "ok"
@@ -108,6 +98,35 @@
       }
     },
     "/users/{userID}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "retrieve a user by id",
+        "description": "Return the user object that has this id",
+        "operationId": "userById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "users"
@@ -178,8 +197,8 @@
         "tags": [
           "products"
         ],
-        "summary": "Get all products/specificy product by name",
-        "description": "Get all products/specificy product by name",
+        "summary": "retrieves products",
+        "description": "Get all products or filter them by a price range and their description",
         "operationId": "getProducts",
         "consumes": [
           "application/json"
@@ -191,10 +210,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Filter option for the Users",
+            "description": "a search parameters object to filter the products to return",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/ProductQuery"
             }
           }
         ],
@@ -429,26 +448,16 @@
         "tags": [
           "category"
         ],
-        "summary": "Get categories from the store. Sorted by a filter",
-        "description": "Get categories from the  store",
-        "operationId": "getCategoryByFilter",
+        "summary": "Get all categories from the store",
+        "description": "Get categories from the store",
+        "operationId": "getCategory",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Filter option for an advanced search within the webshop",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "ok"
@@ -571,10 +580,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Filter option for an advanced search within the webshop",
+            "description": "filters products by a price range and a description",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/ProductQuery"
             }
           }
         ],
@@ -628,7 +637,7 @@
         "tags": [
           "account"
         ],
-        "summary": "Get information about the accounts",
+        "summary": "get all accounts",
         "description": "Get information about the accounts",
         "operationId": "getAllAccounts",
         "consumes": [
@@ -637,17 +646,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Filter option for an advanced search within the webshop",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "ok"
@@ -693,7 +692,30 @@
         ]
       }
     },
-    "/api-catalog/addCategory": {
+    "/api-catalog/category": {
+      "get": {
+        "tags": [
+          "api-service"
+        ],
+        "summary": "Get categories from the store.",
+        "description": "Get all categories for the store",
+        "operationId": "getCategoriesAction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
       "post": {
         "tags": [
           "api-service"
@@ -732,7 +754,30 @@
         ]
       }
     },
-    "/api-catalog/addProduct": {
+    "/api-catalog/product": {
+      "get": {
+        "tags": [
+          "api-service"
+        ],
+        "summary": "Get all products",
+        "description": "Get all products",
+        "operationId": "getProductsAction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
       "post": {
         "tags": [
           "api-service"
@@ -771,7 +816,7 @@
         ]
       }
     },
-    "/api-catalog/deleteCategory/{categoryID}": {
+    "/api-catalog/category/{categoryID}": {
       "delete": {
         "tags": [
           "api-service"
@@ -806,7 +851,36 @@
         ]
       }
     },
-    "/api-catalog/deleteProduct/{productID}": {
+    "/api-catalog/product/{productID}": {
+      "get": {
+        "tags": [
+          "api-service"
+        ],
+        "summary": "Get the detailed view to a specific product",
+        "description": "Return the detailed view to a given product ID",
+        "operationId": "getProductDetailsAction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productID",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product details"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "api-service"
@@ -841,93 +915,12 @@
         ]
       }
     },
-    "/api-catalog/getCategories": {
-      "get": {
-        "tags": [
-          "api-service"
-        ],
-        "summary": "Get categories from the store.",
-        "description": "Get all categories for the store",
-        "operationId": "getCategoriesAction",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "ok"
-          },
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/api-catalog/getProducts": {
-      "get": {
-        "tags": [
-          "api-service"
-        ],
-        "summary": "Get all products",
-        "description": "Get all products",
-        "operationId": "getProductsAction",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "ok"
-          },
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/api-catalog/getProductDetails/{productID}": {
-      "get": {
-        "tags": [
-          "api-service"
-        ],
-        "summary": "Get the detailed view to a specific product",
-        "description": "Return the detailed view to a given product ID",
-        "operationId": "getProductDetailsAction",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "productID",
-            "in": "path",
-            "description": "ID of product to return",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Product details"
-          },
-          "404": {
-            "description": "Product not found"
-          }
-        }
-      }
-    },
     "/api-catalog/searchCatalogue": {
       "post": {
         "tags": [
           "api-service"
         ],
-        "summary": "search product from the catalog",
+        "summary": "get a list of products from the catalog",
         "description": "get products from the catalog",
         "operationId": "searchCatalogueAction",
         "consumes": [
@@ -943,7 +936,7 @@
             "description": "Filter option for an advanced search within the webshop",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/ProductQuery"
             }
           }
         ],
@@ -962,7 +955,7 @@
         "tags": [
           "api-service"
         ],
-        "summary": "search Account by Name or ID",
+        "summary": "search Account by Name",
         "description": "search Account",
         "operationId": "searchAccountAction",
         "consumes": [
@@ -975,10 +968,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Filter option for an advanced search within the webshop",
+            "description": "query for a username",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Query"
+              "$ref": "#/definitions/AccountQuery"
             }
           }
         ],
@@ -1070,10 +1063,26 @@
         }
       }
     },
-    "Query": {
+    "ProductQuery": {
       "type": "object",
       "properties": {
-        "query": {
+        "minPrice": {
+          "type": "number",
+          "format": "float64"
+        },
+        "maxPrice": {
+          "type": "number",
+          "format": "float64"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "AccountQuery": {
+      "type": "object",
+      "properties": {
+        "username": {
           "type": "string"
         }
       }

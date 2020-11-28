@@ -24,7 +24,7 @@ public class ProductService {
     }
 
     public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
-        Product[] products = getAllProducts();
+        List<Product> products = productRepo.findAll();
         List<Product> foundProducts = new ArrayList<Product>();
         for (Product p : products){
             if (searchValue.isPresent() && priceMaxValue.isPresent() && priceMinValue.isPresent()) {
@@ -79,7 +79,8 @@ public class ProductService {
                     foundProducts.add(p);
                 }
             } else {
-                return products;
+                Product[] finalFoundProducts = new Product[products.size()];
+                return products.toArray(finalFoundProducts);
             }
         }
 

@@ -23,8 +23,8 @@ public class ProductService {
         productRepo.save(product);
     }
 
-public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
-        Product[] products = getAllProducts();
+    public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
+        List<Product> products = productRepo.findAll();
         List<Product> foundProducts = new ArrayList<Product>();
         for (Product p : products){
             if (searchValue.isPresent() && priceMaxValue.isPresent() && priceMinValue.isPresent()) {
@@ -79,7 +79,8 @@ public Product[] getAllProducts(Optional<String> searchValue, Optional<String> p
                     foundProducts.add(p);
                 }
             } else {
-                return products;
+                Product[] finalFoundProducts = new Product[products.size()];
+                return products.toArray(finalFoundProducts);
             }
         }
 

@@ -1,8 +1,6 @@
 package com.vslab.products;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 
+import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 

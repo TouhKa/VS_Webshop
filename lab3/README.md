@@ -2,13 +2,13 @@
 
 - Eureka Server: 8761
 - Core Services:
-    - Product: 
-    - Category
+    - Product: 8085
+    - Category: 8086
     - User 
     - Role
 - Composite Serices:
-    - Catalogue
-    - Account
+    - Catalogue: 8087
+    - Account: 
 - API Services: 
 
 

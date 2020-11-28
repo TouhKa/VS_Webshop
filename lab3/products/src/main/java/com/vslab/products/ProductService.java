@@ -23,7 +23,7 @@ public class ProductService {
         productRepo.save(product);
     }
 
-public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
+    public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
         Product[] products = getAllProducts();
         List<Product> foundProducts = new ArrayList<Product>();
         for (Product p : products){

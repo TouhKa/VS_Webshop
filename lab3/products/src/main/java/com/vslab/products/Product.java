@@ -4,20 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
 
 @Entity
 public class Product {
 
+    //@Id: indicating the member field below is the primary key of current entity
     @Id
+    // auto- inkrementing id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
+
     private String name;
-    private Double price;
-    private Integer categoryId;
+    private double price;
+    private int categoryId;
     private String details;
 
-    public Product( String name, Double price, Integer categoryId, String details) {
+    public Product( String name, double price, int categoryId, String details) {
         this.name = name;
         this.price = price;
         this.categoryId = categoryId;
@@ -25,7 +27,6 @@ public class Product {
     }
 
     public Product() {
-
     }
 
     public int getId() {
@@ -36,11 +37,11 @@ public class Product {
         return this.name;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return this.categoryId;
     }
 

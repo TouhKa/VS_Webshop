@@ -19,8 +19,8 @@ public class ProductService {
         return productRepo.findById(productId);
     }
 
-    public void addProduct(Product product) {
-        productRepo.save(product);
+    public Product addProduct(Product product) {
+        return productRepo.save(product);
     }
 
     public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {

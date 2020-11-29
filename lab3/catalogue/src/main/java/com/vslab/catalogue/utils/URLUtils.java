@@ -17,7 +17,6 @@ public class URLUtils {
             productServiceURL = productServiceInstance.getUri().toString();
             categoryServiceURL = categoryServiceInstance.getUri().toString();
         }catch (NullPointerException e){
-            //TODO überprüfen ob das funktioniert
             productServiceURL = "http://" + PRODUCT + ":8085";
             categoryServiceURL = "http://" + PRODUCT + ":8086";
         }

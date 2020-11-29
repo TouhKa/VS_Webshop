@@ -1,6 +1,5 @@
 package com.vslab.catalogue;
 
-
 import com.vslab.catalogue.utils.CustomErrorResponse;
 import com.vslab.catalogue.utils.URLUtils;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -11,13 +10,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import java.util.Optional;
-
 
 @Component
 public class CatalogueService {
-
-
 
     @Bean
     @LoadBalanced
@@ -41,20 +36,21 @@ public class CatalogueService {
         }else {
             throw new CustomErrorResponse("Ressource or Service not found");
         }
-
-    }
-
-    public Product[] searchCatalogue(Optional<String> categoryName, Optional<String> productDetails, Optional<Integer> priceMinValue, Optional<Integer> priceMaxValue) {
-        // get category id
-        // get all products where cateory id
-        //filter min, max price, details
-        return null;
     }
 
     public void deleteCategory(int categoryId) {
-        //TODO get all products where cateogory
-        // delete returned products
-        //delete category
-        //return # deleted objects
+        RestTemplate restTemplate = new RestTemplate();
+        URLUtils utils = new URLUtils();
+        String productServiceURL = utils.getProductServiceURL() + "/product/";
+        String categorieServiceURL = utils.getCategoryServiceURL() + "/category/";
+
+        Product[] products = restTemplate.getForObject(productServiceURL, Product[].class);
+        for (Product product : products) {
+            Product castedProduct = (Product)product;
+            if (castedProduct.getCategoryId() == categoryId) {
+                restTemplate.delete(productServiceURL + castedProduct.getId());
+            }
+        }
+        restTemplate.delete(categorieServiceURL + categoryId);
     }
 }

@@ -29,14 +29,6 @@ public class CatalogueController {
         }
     }
 
-    @GetMapping("/catalogue/")
-    public Product[] searchCatalogue(@RequestParam (value= "categoryName", required = false) Optional<String> categoryName,
-                                     @RequestParam (value= "productDetails", required = false) Optional<String> productDetails,
-                                     @RequestParam(value = "priceMinValue", required = false) Optional<Integer> priceMinValue,
-                                     @RequestParam(value = "priceMaxValue", required = false) Optional<Integer>priceMaxValue ){
-        return catalogueService.searchCatalogue(categoryName, productDetails, priceMinValue, priceMaxValue);
-    }
-
     @DeleteMapping("catalogue/{categoryId}")
     public void deleteCategory(@PathVariable int categoryId){
         catalogueService.deleteCategory(categoryId);

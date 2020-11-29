@@ -1,15 +1,15 @@
 package com.vslab.catalogue;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.vslab.catalogue.utils.CustomErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
-
 @RestController
+@EnableHystrix
 public class CatalogueController {
 
     @Autowired
@@ -20,17 +20,23 @@ public class CatalogueController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ResponseBody
     @PostMapping(value = "/catalogue/", consumes = "application/json")
-    public Object addProduct(@RequestBody Product product){
-        try {
+    @HystrixCommand(fallbackMethod = "indicateUnknownEntity")
+    public Product addProduct(@RequestBody Product product){
             return catalogueService.addProduct(product);
-        }
-        catch(CustomErrorResponse ce){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ce.getMessage());
-        }
     }
 
     @DeleteMapping("catalogue/{categoryId}")
-    public void deleteCategory(@PathVariable int categoryId){
+    @HystrixCommand(fallbackMethod = "indicateUnknownEntity")
+    public String deleteCategory(@PathVariable int categoryId){
         catalogueService.deleteCategory(categoryId);
+        return "Succesfully deleted Category";
+    }
+
+    public String indicateUnknownEntity(int categorieID){
+        return "Ressource not found";
+    }
+
+    public Product indicateUnknownEntity(Product product){
+        return new Product();
     }
 }

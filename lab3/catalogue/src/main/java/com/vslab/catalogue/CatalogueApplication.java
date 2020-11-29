@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-//@EnableHystrixDashboard
+@EnableHystrixDashboard
 @RibbonClient("catalogue-proxy")
 public class CatalogueApplication {
 

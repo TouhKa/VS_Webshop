@@ -44,13 +44,18 @@ public class CatalogueService {
         String productServiceURL = utils.getProductServiceURL() + "/product/";
         String categorieServiceURL = utils.getCategoryServiceURL() + "/category/";
 
-        Product[] products = restTemplate.getForObject(productServiceURL, Product[].class);
-        for (Product product : products) {
-            Product castedProduct = (Product)product;
-            if (castedProduct.getCategoryId() == categoryId) {
-                restTemplate.delete(productServiceURL + castedProduct.getId());
+        Category cTest = restTemplate.getForObject(categorieServiceURL+ categoryId, Category.class);
+        if (cTest != null) {
+            Product[] products = restTemplate.getForObject(productServiceURL, Product[].class);
+            for (Product product : products) {
+                Product castedProduct = (Product)product;
+                if (castedProduct.getCategoryId() == categoryId) {
+                    restTemplate.delete(productServiceURL + castedProduct.getId());
+                }
             }
+            restTemplate.delete(categorieServiceURL + categoryId);
+        }else {
+            throw new CustomErrorResponse("Categorie not found");
         }
-        restTemplate.delete(categorieServiceURL + categoryId);
     }
 }

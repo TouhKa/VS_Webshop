@@ -25,7 +25,11 @@ public class CategoryService {
     }
 
     public Category getCategoryById(int id) {
-         return categoryRepo.findById(id);
+        try {
+            return categoryRepo.findById(id);
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 
     public Category updateCategorie(Category category) {

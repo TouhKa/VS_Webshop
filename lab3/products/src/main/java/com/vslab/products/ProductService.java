@@ -2,7 +2,6 @@ package com.vslab.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,16 +21,15 @@ public class ProductService {
     public Product addProduct(Product product) {
         return productRepo.save(product);
     }
-
     public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
+
         List<Product> products = productRepo.findAll();
         List<Product> foundProducts = new ArrayList<Product>();
         for (Product p : products){
             if (searchValue.isPresent() && priceMaxValue.isPresent() && priceMinValue.isPresent()) {
                 String searchParam= searchValue.get().toLowerCase(); //can be name or details-> check if contains searchparam
-
-                double maxPrice = Float.parseFloat(priceMaxValue.get());
-                double minPrice = Float.parseFloat(priceMinValue.get());
+                double maxPrice = Double.parseDouble(priceMaxValue.get());
+                double minPrice = Double.parseDouble(priceMinValue.get());
                 if(p.getPrice()>= minPrice){
                     if(p.getPrice() <= maxPrice){
                         if (p.getDetails().toLowerCase().contains(searchParam)){
@@ -41,7 +39,7 @@ public class ProductService {
                 }
             }else if(searchValue.isPresent() && !priceMaxValue.isPresent() && priceMinValue.isPresent()) {
                 String searchParam= searchValue.get().toLowerCase();
-                double minPrice = Float.parseFloat(priceMinValue.get());
+                double minPrice = Double.parseDouble(priceMinValue.get());
                 if(p.getPrice()>= minPrice){
                     if (p.getDetails().toLowerCase().contains(searchParam)){
                         foundProducts.add(p);
@@ -49,7 +47,7 @@ public class ProductService {
                 }
             }else if (searchValue.isPresent() && priceMaxValue.isPresent() && !priceMinValue.isPresent()) {
                 String searchParam = searchValue.get().toLowerCase();
-                double maxPrice = Float.parseFloat(priceMaxValue.get());
+                double maxPrice = Double.parseDouble(priceMaxValue.get());
                 if(p.getPrice() <= maxPrice){
                     if (p.getDetails().toLowerCase().contains(searchParam)){
                         foundProducts.add(p);
@@ -61,20 +59,20 @@ public class ProductService {
                     foundProducts.add(p);
                 }
             } else if (!searchValue.isPresent() && !priceMaxValue.isPresent() && priceMinValue.isPresent()) {
-                double minPrice = Float.parseFloat(priceMinValue.get());
+                double minPrice = Double.parseDouble(priceMinValue.get());
                 if(p.getPrice()>= minPrice){
                     foundProducts.add(p);
                 }
             } else if (!searchValue.isPresent() && priceMaxValue.isPresent() && priceMinValue.isPresent()) {
-                double maxPrice = Float.parseFloat(priceMaxValue.get());
-                double minPrice = Float.parseFloat(priceMinValue.get());
+                double maxPrice = Double.parseDouble(priceMaxValue.get());
+                double minPrice = Double.parseDouble(priceMinValue.get());
                 if(p.getPrice()>= minPrice) {
                     if (p.getPrice() <= maxPrice) {
                         foundProducts.add(p);
                     }
                 }
             } else if (!searchValue.isPresent() && priceMaxValue.isPresent() && !priceMinValue.isPresent()) {
-                double maxPrice = Float.parseFloat(priceMaxValue.get());
+                double maxPrice = Double.parseDouble(priceMaxValue.get());
                 if(p.getPrice() <= maxPrice){
                     foundProducts.add(p);
                 }

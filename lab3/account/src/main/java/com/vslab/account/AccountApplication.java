@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableHystrixDashboard
-@RibbonClient("catalogue-proxy")
+@RibbonClient("account-proxy")
 public class AccountApplication {
 
 	public static void main(String[] args) {

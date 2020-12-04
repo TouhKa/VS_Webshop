@@ -20,4 +20,32 @@ eureka:
 zuul:
   ignored-services: '*' #hide all core and comp services by default
   routes:
-    user-proxy: /api/**
+    product:
+      path: /product/**
+      serviceId: product-service
+      stripPrefix: false
+
+    catalogue:
+      path: /catalogue/**
+      serviceId: catalogue-proxy
+      stripPrefix: false
+
+    category:
+      path: /category/**
+      serviceId: category-service
+      stripPrefix: false
+
+    account:
+      path: /account/**
+      serviceId: account-proxy
+      stripPrefix: false
+
+    user:
+      path: /user/**
+      serviceId: user-service
+      stripPrefix: false
+
+    role:
+      path: /role/**
+      serviceId: role-service
+      stripPrefix: false

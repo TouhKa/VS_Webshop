@@ -6,7 +6,7 @@
     - Category: 8086
     - User: 8088
     - Role: 8089
-- Composite Serices:
+- Composite Services:
     - Catalogue: 8087
     - Account: 8090
 - API Services: 

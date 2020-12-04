@@ -4,11 +4,11 @@
 - Core Services:
     - Product: 8085
     - Category: 8086
-    - User 
-    - Role
+    - User: 8088
+    - Role: 8089
 - Composite Serices:
     - Catalogue: 8087
-    - Account: 
+    - Account: 8090
 - API Services: 
 
 

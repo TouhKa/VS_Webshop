@@ -4,7 +4,7 @@
 - Core Services:
     - Product: 8085
     - Category: 8086
-    - User 
+    - User: 8088
     - Role: 8089
 - Composite Serices:
     - Catalogue: 8087

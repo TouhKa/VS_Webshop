@@ -1,4 +1,4 @@
-package com.vslab.user;
+package com.vslab.account;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

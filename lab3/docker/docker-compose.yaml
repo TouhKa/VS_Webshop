@@ -1,0 +1,68 @@
+services:
+  eureka:
+    image: vslab/eureka_server
+    ports: 
+      - "8761:8761"
+    networks:
+      - application
+    environment:
+      - JAVA_OPTS=     
+        -EUREKA_SERVER=http://eureka:8761/eureka    
+
+  product:
+    image: vslab/products
+    ports:
+      - "8085:8085"
+    networks:
+      - application
+
+    environment:
+      - JAVA_OPTS=     
+        -EUREKA_SERVER=http://eureka:8761/eureka  
+    links:
+      - eureka
+    depends_on:
+      - eureka
+
+  category:
+    image: vslab/categories
+    ports:
+      - "8086:8086"
+    networks:
+      - application
+    depends_on:
+      - eureka
+
+    environment:
+      - JAVA_OPTS=     
+        -EUREKA_SERVER=http://eureka:8761/eureka    
+
+  catalogue:
+    image: vslab/catalogue
+    depends_on:
+      - eureka
+    ports:
+      - "8087:8087"
+    networks:
+      - application
+    environment:
+      - JAVA_OPTS=     
+        -EUREKA_SERVER=http://eureka:8761/eureka    
+    
+  zuul:
+    image: vslab/zuul
+    depends_on:
+      - eureka
+    ports: 
+      - "8091:8091"
+    networks:
+      - application
+
+    environment:
+      - JAVA_OPTS=     
+        -EUREKA_SERVER=http://eureka:8761/eureka  
+
+networks:
+  application:
+    driver: bridge
+   

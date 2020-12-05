@@ -1,5 +1,7 @@
 services:
   eureka:
+    build:
+      context: ../eureka-server
     image: vslab/eureka_server
     ports: 
       - "8761:8761"
@@ -10,6 +12,8 @@ services:
         -EUREKA_SERVER=http://eureka:8761/eureka    
 
   product:
+    build:
+      context: ../products
     image: vslab/products
     ports:
       - "8085:8085"
@@ -25,6 +29,8 @@ services:
       - eureka
 
   category:
+    build:
+      context: ../categories
     image: vslab/categories
     ports:
       - "8086:8086"
@@ -38,6 +44,8 @@ services:
         -EUREKA_SERVER=http://eureka:8761/eureka    
 
   catalogue:
+    build:
+      context: ../catalogue
     image: vslab/catalogue
     depends_on:
       - eureka
@@ -50,6 +58,8 @@ services:
         -EUREKA_SERVER=http://eureka:8761/eureka    
     
   zuul:
+    build: 
+      context: ../edge_server
     image: vslab/zuul
     depends_on:
       - eureka

@@ -9,8 +9,7 @@ eureka:
       #ohne docker
       #      defaultZone: http://localhost:8761/eureka/
       #docker
-      # Dont know how this works but it works with the JVA-Env variable in the docker compose
-      defaultZone: ${EUREKA_SERVER:http://eureka:8761/eureka}
+      defaultZone: http://eureka:8761/eureka/
 
   instance:
     preferIpAddress: true

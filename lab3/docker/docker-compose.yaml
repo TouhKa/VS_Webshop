@@ -7,9 +7,6 @@ services:
       - "8761:8761"
     networks:
       - application
-    environment:
-      - JAVA_OPTS=     
-        -EUREKA_SERVER=http://eureka:8761/eureka    
 
   product:
     build:
@@ -19,10 +16,6 @@ services:
       - "8085:8085"
     networks:
       - application
-
-    environment:
-      - JAVA_OPTS=     
-        -EUREKA_SERVER=http://eureka:8761/eureka  
     links:
       - eureka
     depends_on:
@@ -37,11 +30,7 @@ services:
     networks:
       - application
     depends_on:
-      - eureka
-
-    environment:
-      - JAVA_OPTS=     
-        -EUREKA_SERVER=http://eureka:8761/eureka    
+      - eureka 
 
   catalogue:
     build:
@@ -53,9 +42,6 @@ services:
       - "8087:8087"
     networks:
       - application
-    environment:
-      - JAVA_OPTS=     
-        -EUREKA_SERVER=http://eureka:8761/eureka    
     
   zuul:
     build: 
@@ -67,10 +53,6 @@ services:
       - "8091:8091"
     networks:
       - application
-
-    environment:
-      - JAVA_OPTS=     
-        -EUREKA_SERVER=http://eureka:8761/eureka  
 
 networks:
   application:

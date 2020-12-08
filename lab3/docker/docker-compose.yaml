@@ -32,6 +32,29 @@ services:
     depends_on:
       - eureka 
 
+  users:
+    build:
+      context: ../users
+    image: vslab/users
+    ports:
+      - "8086:8088"
+    networks:
+      - application
+    depends_on:
+      - eureka 
+
+  category:
+    build:
+      context: ../roles
+    image: vslab/roles
+    ports:
+      - "8089:8089"
+    networks:
+      - application
+    depends_on:
+      - eureka       
+   
+
   catalogue:
     build:
       context: ../catalogue
@@ -40,6 +63,17 @@ services:
       - eureka
     ports:
       - "8087:8087"
+    networks:
+      - application
+      
+  catalogue:
+    build:
+      context: ../account
+    image: vslab/account
+    depends_on:
+      - eureka
+    ports:
+      - "8090:8090"
     networks:
       - application
     

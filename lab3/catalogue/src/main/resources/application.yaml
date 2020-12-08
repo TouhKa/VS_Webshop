@@ -5,13 +5,22 @@ spring:
     name: catalogue-proxy
 eureka:
   client:
+
+
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      #ohne docker
+#      defaultZone: http://localhost:8761/eureka/
+      #docker
+      defaultZone: http://eureka:8761/eureka/
+
   instance:
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 5
     metadataMap:
       instanceId: "${spring.application.name}:${random.value}"
+
+    #docker config
+    hostname : eureka
 hystrix:
   dashboard:
     proxy-stream-allow-list: '*'

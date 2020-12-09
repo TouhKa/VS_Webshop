@@ -11,7 +11,7 @@
 	<groupId>com.vslab</groupId>
 	<artifactId>account</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>catalogue</name>
+	<name>account</name>
 	<description>Composite Service Account which uses the services users and roles</description>
 
 	<properties>
@@ -47,6 +47,13 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.vslab</groupId>
+			<artifactId>DbModel</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/DbModel.jar</systemPath>
 		</dependency>
 
 

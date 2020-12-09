@@ -2,6 +2,8 @@ package com.vslab.account;
 
 import com.vslab.account.utils.CustomErrorResponse;
 import com.vslab.account.utils.URLUtils;
+import com.vslab.roles.Role;
+import com.vslab.users.User;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -25,13 +27,11 @@ public class AccountService {
         String roleServiceUrl = utils.getRoleServiceUrl() + "/role/";
 
         Role roleToRemove = restTemplate.getForObject(roleServiceUrl + roleId, Role.class);
-        Role lesserRole = restTemplate.getForObject(roleServiceUrl + (roleId - 1), Role.class);
         if (roleToRemove != null) {
             User[] users = restTemplate.getForObject(userServiceUrl, User[].class);
             for (User user : users) {
-                if (user.getRole().equals(roleToRemove)) {
-                    User newUser = user;
-                    newUser.setRole(lesserRole);
+                if (user.getRoleId() == roleToRemove.getId()) {
+                    User newUser = new User(user.getRoleId() - 1, user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword());
                     restTemplate.put(userServiceUrl, newUser);
                 }
             }

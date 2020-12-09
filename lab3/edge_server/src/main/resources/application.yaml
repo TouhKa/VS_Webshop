@@ -49,11 +49,11 @@ zuul:
       stripPrefix: false
 
     user:
-      path: /user/**
+      path: /users/**
       serviceId: user-service
       stripPrefix: false
 
     role:
-      path: /role/**
+      path: /roles/**
       serviceId: role-service
       stripPrefix: false

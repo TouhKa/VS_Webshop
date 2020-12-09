@@ -17,12 +17,12 @@ public class AccountController {
 
     @DeleteMapping("account/{roleId}")
     @HystrixCommand(fallbackMethod = "indicateUnknownEntity")
-    public String removeRole(@PathVariable int roleId){
+    public String removeRole(@PathVariable long roleId){
         accountService.removeRole(roleId);
         return "Succesfully deleted roleId";
     }
 
-    public String indicateUnknownEntity(int userId) {
+    public String indicateUnknownEntity(long userId) {
         return "Resource not found";
     }
 

@@ -14,8 +14,10 @@ public class Role {
     private String type;
 
     public Role(String type) {
-        this.id = id;
         this.type = type;
+    }
+
+    public Role() {
     }
 
     public long getId() {

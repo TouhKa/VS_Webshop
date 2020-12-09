@@ -20,21 +20,31 @@ public class AccountService {
         return builder.build();
     }
 
-    public void removeRole(int roleId) {
+    public void removeRole(long roleId) {
         RestTemplate restTemplate = new RestTemplate();
         URLUtils utils = new URLUtils();
         String userServiceUrl = utils.getUserServiceUrl() + "/users/";
-        String roleServiceUrl = utils.getRoleServiceUrl() + "/role/";
+        String roleServiceUrl = utils.getRoleServiceUrl() + "/roles/";
 
         Role roleToRemove = restTemplate.getForObject(roleServiceUrl + roleId, Role.class);
         if (roleToRemove != null) {
             User[] users = restTemplate.getForObject(userServiceUrl, User[].class);
+            Role[] allRoles = restTemplate.getForObject(roleServiceUrl, Role[].class);
+            // find a new role to choose, because the current role will be removed
+            long highestRoleId = -1;
+            for (Role role : allRoles) {
+                if (role.getId() > highestRoleId && role.getId() != roleId) {
+                    highestRoleId = role.getId();
+                }
+            }
             for (User user : users) {
+                // every user that has this role gets his role updated to the next highest role
                 if (user.getRoleId() == roleToRemove.getId()) {
-                    User newUser = new User(user.getRoleId() - 1, user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword());
+                    User newUser = new User(user.getId(), highestRoleId, user.getFirstname(), user.getLastname(), user.getUsername(), user.getPassword());
                     restTemplate.put(userServiceUrl, newUser);
                 }
             }
+            restTemplate.delete(roleServiceUrl + roleId);
         } else {
             throw new CustomErrorResponse("Role not found");
         }

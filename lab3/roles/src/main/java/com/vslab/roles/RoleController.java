@@ -21,12 +21,12 @@ public class RoleController {
           return service.getRoleById(id);
      }
 
-     @PostMapping(value = "/roles/", consumes = "application/json")
+     @PostMapping(value = "/roles/")
      public Role addRole(@RequestBody Role role) {
           return service.addRole(role);
      }
 
-     @PutMapping(value = "/roles/", consumes = "application/json")
+     @PutMapping(value = "/roles/")
      public Role updateRole(@RequestBody Role role){
           return service.updateRole(role);
      }

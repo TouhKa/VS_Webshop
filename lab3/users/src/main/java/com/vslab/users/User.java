@@ -1,7 +1,5 @@
 package com.vslab.users;
 
-import com.vslab.roles.Role;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

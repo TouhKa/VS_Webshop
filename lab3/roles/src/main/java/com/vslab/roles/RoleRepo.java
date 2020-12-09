@@ -1,4 +1,4 @@
-package com.vslab.role;
+package com.vslab.roles;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -8,11 +8,6 @@ import java.util.List;
 @Transactional
 public interface RoleRepo extends CrudRepository<Role, Long> {
 
-    Role findById(int id);
-
+    @Override
     List<Role> findAll();
-
-    long deleteById(int id);
-
-    Role findByName(String name);
 }

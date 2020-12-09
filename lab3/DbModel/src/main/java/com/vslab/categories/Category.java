@@ -1,4 +1,4 @@
-package com.vslab.role;
+package com.vslab.categories;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,16 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Role {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
 
-    public Role(){    }
+    public Category(){    }
 
-    public Role(String name){
+    public Category(String name){
         this.name = name;
     }
 

@@ -11,7 +11,7 @@ public class ProductController {
      private ProductService productService;
 
      @GetMapping("/product/")
-     public Product[] getProducts(@RequestParam (value= "searParam", required = false) Optional<String> searchValue,
+     public Product[] getProducts(@RequestParam (value= "searchValue", required = false) Optional<String> searchValue,
                                       @RequestParam(value = "priceMinValue", required = false) Optional<String> priceMinValue,
                                       @RequestParam(value = "priceMaxValue", required = false) Optional<String> priceMaxValue){
           if (searchValue.isEmpty() && priceMinValue.isEmpty() && priceMaxValue.isEmpty()){

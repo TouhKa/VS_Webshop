@@ -1,0 +1,8 @@
+ # start container as background application
+docker-compose up -d
+
+ #stop container and remove images
+docker-compose down
+
+#delete unused or pending images
+docker system prune

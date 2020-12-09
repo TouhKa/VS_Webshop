@@ -52,6 +52,14 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.vslab</groupId>
+			<artifactId>DbModel</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/DbModel.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>

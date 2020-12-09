@@ -9,16 +9,16 @@ public class Role {
 
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
 
     private String type;
 
-    public Role(int id, String type) {
+    public Role(String type) {
         this.id = id;
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

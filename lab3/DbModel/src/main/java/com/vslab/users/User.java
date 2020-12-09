@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
 
     private Role role;
 
@@ -31,7 +31,7 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

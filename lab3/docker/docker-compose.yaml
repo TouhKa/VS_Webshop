@@ -31,17 +31,6 @@ services:
       - application
     depends_on:
       - eureka 
-      
-  users:
-    build:
-      context: ../users
-    image: vslab/users
-    ports:
-      - "8088:8088"
-    networks:
-      - application
-    depends_on:
-      - eureka 
 
   roles:
     build:
@@ -52,8 +41,7 @@ services:
     networks:
       - application
     depends_on:
-      - eureka       
-   
+      - eureka
 
   catalogue:
     build:
@@ -63,17 +51,6 @@ services:
       - eureka
     ports:
       - "8087:8087"
-    networks:
-      - application
-      
-  account:
-    build:
-      context: ../account
-    image: vslab/account
-    depends_on:
-      - eureka
-    ports:
-      - "8090:8090"
     networks:
       - application
     

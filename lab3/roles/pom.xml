@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vslab</groupId>
-	<artifactId>products</artifactId>
+	<artifactId>roles</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>products</name>
-	<description>Core Service: Products</description>
+	<name>roles</name>
+	<description>Core Service: Roles</description>
 
 	<properties>
 		<java.version>15</java.version>

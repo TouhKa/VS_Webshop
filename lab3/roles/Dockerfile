@@ -1,4 +1,4 @@
 FROM openjdk:15
-ADD target/products*.jar products.jar
-EXPOSE 8085
-ENTRYPOINT ["java","-jar","products.jar"]
+ADD target/roles*.jar roles.jar
+EXPOSE 8089
+ENTRYPOINT ["java","-jar","roles.jar"]

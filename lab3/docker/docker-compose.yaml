@@ -31,13 +31,13 @@ services:
       - application
     depends_on:
       - eureka 
-
+      
   users:
     build:
       context: ../users
     image: vslab/users
     ports:
-      - "8086:8088"
+      - "8088:8088"
     networks:
       - application
     depends_on:

@@ -13,7 +13,7 @@ public class User {
     @GeneratedValue
     private long id;
 
-    private Role role;
+    private long roleId;
 
     private String firstname;
 
@@ -23,8 +23,8 @@ public class User {
 
     private String password;
 
-    public User(Role role, String firstname, String lastname, String username, String password) {
-        this.role = role;
+    public User(long roleId, String firstname, String lastname, String username, String password) {
+        this.roleId = roleId;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -35,8 +35,8 @@ public class User {
         return id;
     }
 
-    public Role getRole() {
-        return role;
+    public long getRoleId() {
+        return roleId;
     }
 
     public String getFirstname() {

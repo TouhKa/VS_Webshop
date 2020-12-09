@@ -1,4 +1,4 @@
-package com.vslab.user;
+package com.vslab.users;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -8,11 +8,6 @@ import java.util.List;
 @Transactional
 public interface UserRepo extends CrudRepository<User, Long> {
 
-    User findById(int id);
-
+    @Override
     List<User> findAll();
-
-    long deleteById(int id);
-
-    User findByName(String name);
 }

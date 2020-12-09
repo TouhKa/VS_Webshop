@@ -26,11 +26,11 @@ public class RoleController {
           return service.addRole(role);
      }
 
-     @PutMapping(value = "/role/", consumes = "application/json")
+     @PutMapping(value = "/roles/", consumes = "application/json")
      public Role updateRole(@RequestBody Role role){
           return service.updateRole(role);
      }
-     @DeleteMapping("/role/{id}")
+     @DeleteMapping("/roles/{id}")
      public void deleteRole(@PathVariable int id){
           service.deleteRole(id);
      }

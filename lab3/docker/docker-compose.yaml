@@ -64,6 +64,17 @@ services:
       - "8087:8087"
     networks:
       - application
+      
+  account:
+    build:
+      context: ../account
+    image: vslab/account
+    depends_on:
+      - eureka
+    ports:
+      - "8090:8090"
+    networks:
+      - application
     
   zuul:
     build: 

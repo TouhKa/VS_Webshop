@@ -2,6 +2,7 @@ package com.vslab.account;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.vslab.account.utils.CustomErrorResponse;
+import com.vslab.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.http.HttpStatus;

@@ -18,8 +18,8 @@ In Docker Desktop you will find a container wrapper with the default name "docke
 - Core Services:
     - Product: 8085
     - Category: 8086
-    - User: 8088
-    - Role: 8089
+    - /users/: 8088
+    - /roles/: 8089
 - Composite Services:
     - Catalogue: 8087
     - Account: 8090

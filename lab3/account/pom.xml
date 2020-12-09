@@ -48,14 +48,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.vslab</groupId>
-			<artifactId>DbModel</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/DbModel.jar</systemPath>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

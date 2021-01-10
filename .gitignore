@@ -1,3 +1,4 @@
-/.data/
-*/.idea/*
-*/target/*
+*.data*
+*jar
+*.idea*
+*target*

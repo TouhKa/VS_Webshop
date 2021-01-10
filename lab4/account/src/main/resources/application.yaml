@@ -1,0 +1,27 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: account-proxy
+eureka:
+  client:
+
+
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 5
+    metadataMap:
+      instanceId: "${spring.application.name}:${random.value}"
+      hostname : eureka
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: '*'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

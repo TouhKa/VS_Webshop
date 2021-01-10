@@ -1,0 +1,93 @@
+services:
+  eureka:
+    build:
+      context: ../eureka-server
+    image: vslab/eureka_server
+    ports: 
+      - "8761:8761"
+    networks:
+      - application
+
+  product:
+    build:
+      context: ../products
+    image: vslab/products
+    ports:
+      - "8085:8085"
+    networks:
+      - application
+    links:
+      - eureka
+    depends_on:
+      - eureka
+
+  category:
+    build:
+      context: ../categories
+    image: vslab/categories
+    ports:
+      - "8086:8086"
+    networks:
+      - application
+    depends_on:
+      - eureka 
+      
+  users:
+    build:
+      context: ../users
+    image: vslab/users
+    ports:
+      - "8088:8088"
+    networks:
+      - application
+    depends_on:
+      - eureka 
+
+  roles:
+    build:
+      context: ../roles
+    image: vslab/roles
+    ports:
+      - "8089:8089"
+    networks:
+      - application
+    depends_on:
+      - eureka
+
+  catalogue:
+    build:
+      context: ../catalogue
+    image: vslab/catalogue
+    depends_on:
+      - eureka
+    ports:
+      - "8087:8087"
+    networks:
+      - application
+      
+  account:
+    build:
+      context: ../account
+    image: vslab/account
+    depends_on:
+      - eureka
+    ports:
+      - "8090:8090"
+    networks:
+      - application
+    
+  zuul:
+    build: 
+      context: ../edge_server
+    image: vslab/zuul
+    depends_on:
+      - eureka
+    ports: 
+      - "8091:8091"
+    networks:
+      - application
+
+networks:
+  application:
+    driver: bridge
+   

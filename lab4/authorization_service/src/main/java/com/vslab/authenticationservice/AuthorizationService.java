@@ -51,6 +51,14 @@ public class AuthorizationService extends AuthorizationServerConfigurerAdapter {
                 .authorities("ROLE_CLIENT")
                 .scopes("read")
                 .resourceIds("oauth2-resource")
-                .secret(passwordEncoder.encode("IAmASuperSecretWebshopSecret"));
+                .secret(passwordEncoder.encode("IAmASuperSecretWebshopSecret"))
+
+                .and()
+                .withClient("productID")
+                .authorizedGrantTypes("client_credentials")
+                .authorities("ROLE_CLIENT")
+                .scopes("read", "write")
+                .resourceIds("oauth2-resource")
+                .secret(passwordEncoder.encode("productSecret"));
     }
 }

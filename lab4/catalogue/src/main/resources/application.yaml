@@ -5,8 +5,6 @@ spring:
     name: catalogue-proxy
 eureka:
   client:
-
-
     serviceUrl:
       #ohne docker
 #      defaultZone: http://localhost:8761/eureka/

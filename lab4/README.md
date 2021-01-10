@@ -24,6 +24,7 @@ In Docker Desktop you will find a container wrapper with the default name "docke
     - Catalogue: 8087
     - Account: 8090
 - API Services: 8091
+- Authorization Service: 8092
 
 ## Hystrix Dashboard
 The Dashboard tracks the Interfaces of the composite services.

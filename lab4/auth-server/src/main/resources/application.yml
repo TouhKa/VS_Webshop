@@ -1,6 +1,6 @@
 spring:
   application:
-    name: authorization-service
+    name: authorization-server
 security:
   oauth2:
     resource:

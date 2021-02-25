@@ -30,3 +30,8 @@ In Docker Desktop you will find a container wrapper with the default name "docke
 The Dashboard tracks the Interfaces of the composite services.
 When opening http://service-url:service-port/hystrix you need to enter http://service-url:service-port/actuator/hystrix.stream as URL.
 Before the composite service receives any request the dashboard has the status "loading"
+
+## URLs
+Authorization Endpoint: /oauth/authorize
+Token Endpoint: /oauth/token <- this is where the client application gets a token
+Key Endpoint: /oauth/keys <- this is where all other services get the key to verify the token they got from the client application.

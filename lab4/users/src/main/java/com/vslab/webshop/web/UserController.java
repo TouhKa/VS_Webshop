@@ -1,5 +1,7 @@
-package com.vslab.users;
+package com.vslab.webshop.web;
 
+import com.vslab.webshop.User;
+import com.vslab.webshop.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,11 @@ public class UserController {
      @GetMapping("/users/")
      public User[] getAllUsers() {
           return userService.getAllUsers();
+     }
+
+     @GetMapping("/users/test")
+     public User getTestUser() {
+          return new User(1, "Daniel", "Kispert", "Daniel", "password");
      }
 
      @PostMapping(value = "/users/", consumes = "application/json")

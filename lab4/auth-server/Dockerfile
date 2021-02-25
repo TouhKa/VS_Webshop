@@ -1,4 +1,4 @@
 FROM openjdk:15
-ADD target/authorization-service*.jar authorization-service.jar
+ADD target/auth-server*.jar auth-server.jar
 EXPOSE 8092
-ENTRYPOINT ["java","-jar","authorization-service.jar"]
+ENTRYPOINT ["java","-jar","auth-server.jar"]

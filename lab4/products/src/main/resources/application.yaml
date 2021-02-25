@@ -24,4 +24,4 @@ security:
       client-id: productID
       client-secret: productSecret
     resource:
-      userInfoUri: http://authorization-service:9082/oauth/check
+      userInfoUri: http://auth-server:8092/oauth/check

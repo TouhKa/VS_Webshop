@@ -87,10 +87,10 @@ services:
     networks:
       - application
    
-  authorization-service:
+  auth-server:
     build:
-      context: ../authorization_service
-    image: vslab/authorization-service
+      context: ../auth-server
+    image: vslab/auth-server
     depends_on:
       - eureka
     ports:

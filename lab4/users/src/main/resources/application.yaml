@@ -13,3 +13,13 @@ eureka:
     metadataMap:
       instanceId: "${spring.application.name}:${random.value}"
       hostname: eureka
+
+security:
+  oauth2:
+    client:
+      clientId: webshop-client
+      clientSecret: webshop-secret
+      accessTokenUri: http://auth-server:8092/oauth/token
+      userAuthorizationUri: http://auth-server:8092/oauth/authorize
+    resource:
+      token-info-uri: http://auth-server:8092/oauth/check_token

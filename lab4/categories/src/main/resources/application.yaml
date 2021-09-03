@@ -10,11 +10,19 @@ eureka:
       #      defaultZone: http://localhost:8761/eureka/
       #docker
       defaultZone: http://eureka:8761/eureka/
-
   instance:
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 5
     metadataMap:
       instanceId: "${spring.application.name}:${random.value}"
-    #docker config
-    hostname: eureka
+      hostname: eureka
+
+security:
+  oauth2:
+    client:
+      clientId: webshop-client
+      clientSecret: webshop-secret
+      accessTokenUri: http://auth-server:8092/oauth/token
+      userAuthorizationUri: http://auth-server:8092/oauth/authorize
+    resource:
+      token-info-uri: http://auth-server:8092/oauth/check_token

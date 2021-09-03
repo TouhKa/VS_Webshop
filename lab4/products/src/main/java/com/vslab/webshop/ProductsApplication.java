@@ -1,10 +1,8 @@
-package com.vslab.products;
+package com.vslab.webshop;
 
-import com.google.j2objc.annotations.ReflectionSupport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
 @EnableDiscoveryClient

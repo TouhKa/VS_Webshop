@@ -1,4 +1,4 @@
-package com.vslab.products;
+package com.vslab.webshop;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ public class Product {
 
     //@Id: indicating the member field below is the primary key of current entity
     @Id
-    // auto- inkrementing id
+    // auto- incrementing id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 

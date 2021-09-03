@@ -1,9 +1,9 @@
-package com.vslab.roles;
+package com.vslab.webshop.web;
 
+import com.vslab.webshop.Role;
+import com.vslab.webshop.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class RoleController {

@@ -16,7 +16,7 @@ In Docker Desktop you will find a container wrapper with the default name "docke
 
 - Eureka Server: 8761
 - Core Services:
-    - Product: 8085
+    - /product/: 8085
     - Category: 8086
     - /users/: 8088
     - /roles/: 8089

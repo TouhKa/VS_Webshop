@@ -1,6 +1,7 @@
-package com.vslab.products;
+package com.vslab.webshop;
 
 import org.springframework.data.repository.CrudRepository;
+
 import javax.transaction.Transactional;
 import java.util.List;
 

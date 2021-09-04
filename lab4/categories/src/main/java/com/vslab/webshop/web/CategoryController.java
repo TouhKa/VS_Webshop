@@ -1,5 +1,7 @@
-package com.vslab.categories;
+package com.vslab.webshop.web;
 
+import com.vslab.webshop.Category;
+import com.vslab.webshop.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

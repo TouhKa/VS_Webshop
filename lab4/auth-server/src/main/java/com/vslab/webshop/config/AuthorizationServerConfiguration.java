@@ -43,7 +43,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .withClient(clientId)
                 .secret(passwordEncoder.encode(clientSecret))
                 .authorizedGrantTypes("password")
-                .scopes("user_info")
+                .scopes("user_info", "role_info", "product_info", "category_info")
                 .autoApprove(true);
     }
 

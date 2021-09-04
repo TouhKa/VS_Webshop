@@ -1,9 +1,10 @@
-package com.vslab.products;
+package com.vslab.webshop.web;
 
+import com.vslab.webshop.Product;
+import com.vslab.webshop.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 @RestController
@@ -13,9 +14,9 @@ public class ProductController {
      private ProductService productService;
 
      @GetMapping("/product/")
-     public Product[] getProducts(@RequestParam (value= "searchValue", required = false) Optional<String> searchValue,
-                                      @RequestParam(value = "priceMinValue", required = false) Optional<String> priceMinValue,
-                                      @RequestParam(value = "priceMaxValue", required = false) Optional<String> priceMaxValue){
+     public Product[] getProducts(@RequestParam(value= "searchValue", required = false) Optional<String> searchValue,
+                                  @RequestParam(value = "priceMinValue", required = false) Optional<String> priceMinValue,
+                                  @RequestParam(value = "priceMaxValue", required = false) Optional<String> priceMaxValue){
           if (searchValue.isEmpty() && priceMinValue.isEmpty() && priceMaxValue.isEmpty()){
                return this.productService.getAllProducts();
           }else{

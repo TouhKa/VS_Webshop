@@ -1,4 +1,4 @@
-package com.vslab.roles;
+package com.vslab.webshop;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -7,7 +7,7 @@ services:
 # and 'mvn test -B' if it finds a 'pom.xml' in the root.
 # see https://docs.travis-ci.com/user/languages/java/
 language: java
-jdk: oraclejdk8
+jdk: openjdk15
 
 env:
   global:

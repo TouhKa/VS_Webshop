@@ -19,8 +19,8 @@ public class UserManagerImpl implements UserManager {
 	UserDAO helper;
 
 	UserServiceAction userServiceAction = new UserServiceAction();
-//	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext("hska.iwi.eShopMaster");
-//	OAuth2RestTemplate bean = (OAuth2RestTemplate) ctx.getBean("restTemplate");
+	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext("hska.iwi.eShopMaster");
+	OAuth2RestTemplate bean = (OAuth2RestTemplate) ctx.getBean("restTemplate");
 	public UserManagerImpl() {
 		helper = new UserDAO();
 	}
@@ -36,7 +36,7 @@ public class UserManagerImpl implements UserManager {
 			return null;
 		}
 //		--- test
-		MicroUser[] users = userServiceAction.getAllUsers();
+		MicroUser[] users = userServiceAction.getAllUsers(bean);
 //		 --- test
 		return helper.getUserByUsername(username);
 	}

@@ -56,13 +56,9 @@ public class UserServiceAction {
 
     //methods are named the same as of UserService.java from the corresponding module
 
-    public MicroUser[] getAllUsers() {
-        OAuth2RestTemplate restTemplate = restTemplate();
+    public MicroUser[] getAllUsers(OAuth2RestTemplate restTemplate) {
         log.info(restTemplate.getAccessToken().getValue());
         MicroUser[] users = restTemplate.getForObject(userServiceURL, MicroUser[].class);
-        for(MicroUser user : users ) {
-            log.warn(users.toString());
-        }
         return users;
 
     }

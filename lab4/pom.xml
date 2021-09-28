@@ -23,7 +23,7 @@
 		<module>categories</module>
 		<module>products</module>
 		<module>roles</module>
-		<module>ShopWebApplication</module>
+<!--		<module>ShopWebApplication</module>-->
 		<module>users</module>
 	</modules>
 

@@ -27,6 +27,7 @@ eureka:
 
 zuul:
   ignored-services: '*' #hide all core and comp services by default
+  sensitiveHeaders: Cookie,Set-Cookie
   routes:
     product:
       path: /product/**

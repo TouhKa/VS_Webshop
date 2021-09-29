@@ -1,6 +1,8 @@
 package hska.iwi.eShopMaster.controller.microservices;
 
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.MicroUser;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -10,18 +12,16 @@ import org.springframework.security.oauth2.client.token.AccessTokenRequest;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.security.oauth2.common.AuthenticationScheme;
-
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Configuration
+@EnableOAuth2Client
 @SuppressWarnings("deprecation")
 public class UserServiceAction {
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
-    private String userServiceURL = "http://zuul:8091/users";
+    private String userServiceURL = "http://zuul:8091/users/";
     private String clientId = "webshop-client";
     private String clientSecret = "webshop-secret";
     private String userServiceScope = "user_info";
@@ -35,7 +35,6 @@ public class UserServiceAction {
         details.setClientId(clientId);
         details.setClientSecret(clientSecret);
         details.setAccessTokenUri(authServerTokenURL);
-//        details.setGrantType("client_credentials");
 
         List<String> scope = new ArrayList<>();
         scope.add(userServiceScope);
@@ -43,44 +42,42 @@ public class UserServiceAction {
 
         details.setAuthenticationScheme(AuthenticationScheme.header);
         details.setClientAuthenticationScheme(AuthenticationScheme.header);
-        details.setId("1"); //is this needed
+        details.setId("1"); //is this needed?
         details.setTokenName("User_Service");
         return details;
     }
 
     @Bean(name = "restTemplate") // has to be done at runtime because the authorization server would not be up otherwise
-    public OAuth2RestTemplate restTemplate() {
+    public OAuth2RestTemplate awesomeRestTemplate() {
         AccessTokenRequest atr = new DefaultAccessTokenRequest();
         return new OAuth2RestTemplate(oAuth2ResourceDetails(), new DefaultOAuth2ClientContext(atr));
     }
 
-    //methods are named the same as of UserService.java from the corresponding module
-
-    public MicroUser[] getAllUsers(OAuth2RestTemplate restTemplate) {
-        log.info(restTemplate.getAccessToken().getValue());
-        MicroUser[] users = restTemplate.getForObject(userServiceURL, MicroUser[].class);
-        return users;
-
+    public User[] getAllUsers() {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        return  restTemplate.getForObject(userServiceURL, User[].class);
     }
 
-
-    public MicroUser addUser(MicroUser microUser, OAuth2RestTemplate restTemplate) {
-        return restTemplate.postForObject(userServiceURL, microUser, MicroUser.class) ;
+    public User addUser(User user) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        return restTemplate.postForObject(userServiceURL, user, User.class) ;
     }
 
-    public MicroUser getUserById(String id, OAuth2RestTemplate restTemplate) {
-        return restTemplate.getForObject(userServiceURL + "/" + id, MicroUser.class);
+    public User getUserById(String id) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        return restTemplate.getForObject(userServiceURL + id, User.class);
     }
 
-    public MicroUser updateUser(MicroUser microUser, OAuth2RestTemplate restTemplate) {
-        restTemplate.put(userServiceURL, microUser);
-
+    public User updateUser(User user) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        restTemplate.put(userServiceURL, user);
         //todo remove
-        return restTemplate.getForObject(userServiceURL + "/" + microUser.getId(), MicroUser.class);
+        return restTemplate.getForObject(userServiceURL + user.getId(), User.class);
     }
 
-    public void deleteUser(String id, OAuth2RestTemplate restTemplate) {
-        restTemplate.delete(userServiceURL + "/" + id);
+    public void deleteUser(String id) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        restTemplate.delete(userServiceURL + id);
     }
 
 }

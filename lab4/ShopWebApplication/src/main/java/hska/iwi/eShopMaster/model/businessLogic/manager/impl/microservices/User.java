@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 //copy of class 'User' of the user service module
 @Entity
-public class MicroUser {
+public class User {
 
     @Id
     @GeneratedValue
@@ -23,7 +23,7 @@ public class MicroUser {
 
     private String password;
 
-    public MicroUser(long roleId, String firstname, String lastname, String username, String password) {
+    public User(long roleId, String firstname, String lastname, String username, String password) {
         this.roleId = roleId;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -31,7 +31,7 @@ public class MicroUser {
         this.password = password;
     }
 
-    public MicroUser() {
+    public User() {
     }
 
     public long getId() {

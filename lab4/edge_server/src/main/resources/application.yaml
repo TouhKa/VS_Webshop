@@ -58,3 +58,6 @@ zuul:
       path: /roles/**
       serviceId: role-service
       stripPrefix: false
+  host:
+    connect-timeout-millis: 50000
+    socket-timeout-millis: 50000

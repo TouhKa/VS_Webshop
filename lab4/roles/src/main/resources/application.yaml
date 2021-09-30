@@ -17,8 +17,8 @@ eureka:
 security:
   oauth2:
     client:
-      clientId: webshop-client
-      clientSecret: webshop-secret
+      clientId: role-service-client
+      clientSecret: role-service-secret
       accessTokenUri: http://auth-server:8092/oauth/token
       userAuthorizationUri: http://auth-server:8092/oauth/authorize
     resource:

@@ -22,8 +22,8 @@ import java.util.List;
 public class UserServiceAction {
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
     private String userServiceURL = "http://zuul:8091/users/";
-    private String clientId = "webshop-client";
-    private String clientSecret = "webshop-secret";
+    private String clientId = "user-service-client";
+    private String clientSecret = "user-service-secret";
     private String userServiceScope = "user_info";
 
     // Create a Logger

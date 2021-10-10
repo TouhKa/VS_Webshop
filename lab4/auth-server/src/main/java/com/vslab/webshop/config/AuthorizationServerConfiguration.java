@@ -42,8 +42,20 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         clients.inMemory()
                 .withClient(clientId)
                 .secret(passwordEncoder.encode(clientSecret))
-                .authorizedGrantTypes("password")
+                .authorizedGrantTypes("password", "client_credentials")
                 .scopes("user_info", "role_info", "product_info", "category_info")
+                .autoApprove(true)
+                .and()
+                .withClient("user-service-client")
+                .secret(passwordEncoder.encode("user-service-secret"))
+                .authorizedGrantTypes("client_credentials")
+                .scopes("user_info")
+                .autoApprove(true)
+                .and()
+                .withClient("role-service-client")
+                .secret(passwordEncoder.encode("role-service-secret"))
+                .authorizedGrantTypes("client_credentials")
+                .scopes("role_info")
                 .autoApprove(true);
     }
 

@@ -23,10 +23,9 @@ public class UserResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http
-                .antMatcher("/users/**")
+             http.antMatcher("/users/**")
                 .authorizeRequests()
-                .antMatchers("/users/**").access("#oauth2.hasScope('user_info')");
+                .anyRequest().authenticated();
         // @formatter:on
     }
 

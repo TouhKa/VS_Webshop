@@ -40,12 +40,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-//                .withClient(clientId)
-//                .secret(passwordEncoder.encode(clientSecret))
-//                .authorizedGrantTypes("password", "client_credentials")
-//                .scopes("user_info", "role_info", "product_info", "category_info")
-//                .autoApprove(true)
-//                .and()
+                .withClient(clientId)
+                .secret(passwordEncoder.encode(clientSecret))
+                .authorizedGrantTypes("password", "client_credentials")
+                .scopes("user_info", "role_info", "product_info", "category_info")
+                .autoApprove(true)
+                .and()
                 .withClient("user-service-client")
                 .secret(passwordEncoder.encode("user-service-secret"))
                 .authorizedGrantTypes("client_credentials")

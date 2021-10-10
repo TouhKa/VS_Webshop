@@ -61,3 +61,7 @@ zuul:
   host:
     connect-timeout-millis: 50000
     socket-timeout-millis: 50000
+ribbon:
+  ConnectTimeout: 50000
+  ReadTimeout: 50000
+

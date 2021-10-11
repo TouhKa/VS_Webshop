@@ -1,12 +1,13 @@
-package com.vslab.account;
+package com.vslab.webshop.web;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.vslab.account.utils.CustomErrorResponse;
-import com.vslab.users.User;
+import com.vslab.webshop.AccountService;
+import com.vslab.webshop.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableHystrix
@@ -19,7 +20,7 @@ public class AccountController {
     @HystrixCommand(fallbackMethod = "indicateUnknownEntity")
     public String removeRole(@PathVariable long roleId){
         accountService.removeRole(roleId);
-        return "Succesfully deleted roleId";
+        return "Successfully deleted role with id " + roleId;
     }
 
     public String indicateUnknownEntity(long userId) {

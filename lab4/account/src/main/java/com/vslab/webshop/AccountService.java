@@ -1,9 +1,9 @@
-package com.vslab.account;
+package com.vslab.webshop;
 
-import com.vslab.account.utils.CustomErrorResponse;
-import com.vslab.account.utils.URLUtils;
-import com.vslab.roles.Role;
-import com.vslab.users.User;
+import com.vslab.webshop.utils.CustomErrorResponse;
+import com.vslab.webshop.utils.URLUtils;
+import com.vslab.webshop.roles.Role;
+import com.vslab.webshop.users.User;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

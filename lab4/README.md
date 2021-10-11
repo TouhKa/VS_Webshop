@@ -33,5 +33,7 @@ Before the composite service receives any request the dashboard has the status "
 
 ## URLs
 Authorization Endpoint: /oauth/authorize
+
 Token Endpoint: /oauth/token <- this is where the client application gets a token
+
 Key Endpoint: /oauth/keys <- this is where all other services get the key to verify the token they got from the client application.

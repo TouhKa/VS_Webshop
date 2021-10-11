@@ -1,4 +1,4 @@
-package com.vslab.catalogue;
+package com.vslab.webshop.product;
 
 public class Product {
     private int id;

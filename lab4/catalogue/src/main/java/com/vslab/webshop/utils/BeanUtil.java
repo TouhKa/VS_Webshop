@@ -1,4 +1,4 @@
-package com.vslab.catalogue.utils;
+package com.vslab.webshop.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -1,4 +1,4 @@
-package com.vslab.account;
+package com.vslab.webshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

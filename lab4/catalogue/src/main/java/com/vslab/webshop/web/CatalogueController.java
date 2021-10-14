@@ -1,8 +1,9 @@
-package com.vslab.catalogue;
+package com.vslab.webshop.web;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
-import com.vslab.catalogue.utils.CustomErrorResponse;
+import com.vslab.webshop.CatalogueService;
+import com.vslab.webshop.product.Product;
+import com.vslab.webshop.utils.CustomErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.vslab.catalogue;
+package com.vslab.webshop.category;
 
 public class Category {
 

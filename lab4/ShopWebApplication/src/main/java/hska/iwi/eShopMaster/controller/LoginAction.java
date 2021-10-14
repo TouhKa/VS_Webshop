@@ -2,25 +2,24 @@ package hska.iwi.eShopMaster.controller;
 
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.UserManagerImpl;
-import hska.iwi.eShopMaster.model.database.dataobjects.User;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
 
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import hska.iwi.eShopMaster.model.util.DockerLogger;
 
 public class LoginAction extends ActionSupport {
 
-	/**
-     *
-     */
 	private static final long serialVersionUID = -983183915002226000L;
 	private String username = null;
 	private String password = null;
 	private String firstname;
 	private String lastname;
 	private String role;
-	
+
+	DockerLogger logger = new DockerLogger(LoginAction.class.getSimpleName());
 
 	@Override
 	public String execute() throws Exception {
@@ -29,9 +28,12 @@ public class LoginAction extends ActionSupport {
 		String result = "input";
 
 		UserManager myCManager = new UserManagerImpl();
-		
-		// Get user from DB:
+
+		// Get user from microservice:
 		User user = myCManager.getUserByUsername(getUsername());
+
+		logger.write("Username: " + user.getPassword());
+		logger.write("Password: " + user.getUsername());
 
 		// Does user exist?
 		if (user != null) {
@@ -45,17 +47,25 @@ public class LoginAction extends ActionSupport {
 				session.put("message", "");
 				firstname= user.getFirstname();
 				lastname = user.getLastname();
-				role = user.getRole().getTyp();
+				long roleID = user.getRoleId();
+				//TOOD call Role service to extract the name of the roleId
+				if (roleID == 1) {
+					role = "user";
+				} else {
+					role = "admin";
+				}
+
 				result = "success";
 			}
 			else {
+				logger.write("Password wrong: " + user.getPassword() + ", " + getPassword());
 				addActionError(getText("error.password.wrong"));
 			}
 		}
 		else {
 			addActionError(getText("error.username.wrong"));
 		}
-
+		logger.close();
 		return result;
 	}
 	
@@ -108,4 +118,5 @@ public class LoginAction extends ActionSupport {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 }

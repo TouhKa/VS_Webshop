@@ -1,7 +1,7 @@
 package hska.iwi.eShopMaster.model.businessLogic.manager;
 
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
 import hska.iwi.eShopMaster.model.database.dataobjects.Role;
-import hska.iwi.eShopMaster.model.database.dataobjects.User;
 
 
 public interface UserManager {
@@ -10,9 +10,11 @@ public interface UserManager {
     
     public User getUserByUsername(String username);
     
-    public boolean deleteUserById(int id);
+    public boolean deleteUserById(String id);
     
     public Role getRoleByLevel(int level);
     
     public boolean doesUserAlreadyExist(String username);
+
+    public User searchUser(User[] users, String password);
 }

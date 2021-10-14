@@ -19,9 +19,7 @@ public class UserApplication {
 	public CommandLineRunner defaultUser(UserRepo repository) {
 		return (args) -> {
 			// create admin user
-//			insert into `role` (`level1`, `type`) values(0, 'admin');
-//			insert into `role` (`level1`, `type`) values(1, 'user');
-			repository.save(new User(0, "admin", "admin", "admin", "admin"));
+			repository.save(new User(2, "admin", "admin", "admin", "admin"));
 		};
 	}
 }

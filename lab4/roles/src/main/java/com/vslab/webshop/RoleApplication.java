@@ -17,8 +17,8 @@ public class RoleApplication {
 	public CommandLineRunner defaultUser(RoleRepo repository) {
 		return (args) -> {
 			// create admin and user roles
-			repository.save(new Role("admin"));
 			repository.save(new Role("user"));
+			repository.save(new Role("admin"));
 		};
 	}
 }

@@ -108,6 +108,8 @@ services:
       - "8888:8080"
     networks:
       - application
+    volumes:
+      - ./debug:/logs
 
   web-shop-db-image:
     build:
@@ -128,4 +130,3 @@ services:
 networks:
   application:
     driver: bridge
-   

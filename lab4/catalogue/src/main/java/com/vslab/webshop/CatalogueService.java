@@ -1,7 +1,9 @@
-package com.vslab.catalogue;
+package com.vslab.webshop;
 
-import com.vslab.catalogue.utils.CustomErrorResponse;
-import com.vslab.catalogue.utils.URLUtils;
+import com.vslab.webshop.category.Category;
+import com.vslab.webshop.product.Product;
+import com.vslab.webshop.utils.CustomErrorResponse;
+import com.vslab.webshop.utils.URLUtils;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

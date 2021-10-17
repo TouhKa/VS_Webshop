@@ -1,4 +1,4 @@
-package com.vslab.catalogue.utils;
+package com.vslab.webshop.utils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice

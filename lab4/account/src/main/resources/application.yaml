@@ -5,8 +5,6 @@ spring:
     name: account-proxy
 eureka:
   client:
-
-
     serviceUrl:
       defaultZone: http://eureka:8761/eureka/
 
@@ -25,3 +23,13 @@ management:
     web:
       exposure:
         include: '*'
+
+security:
+  oauth2:
+    client:
+      clientId: webshop-client
+      clientSecret: webshop-secret
+      accessTokenUri: http://auth-server:8092/oauth/token
+      userAuthorizationUri: http://auth-server:8092/oauth/authorize
+    resource:
+      token-info-uri: http://auth-server:8092/oauth/check_token

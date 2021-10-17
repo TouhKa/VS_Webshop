@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 
 @Configuration
 @EnableResourceServer
+@SuppressWarnings("Deprecation")
 public class ProductResourceServerConfig extends ResourceServerConfigurerAdapter {
     
     @Value("${security.oauth2.client.clientId}")
@@ -24,10 +25,9 @@ public class ProductResourceServerConfig extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http
-                .antMatcher("/product/**")
+        http.antMatcher("/product/**")
                 .authorizeRequests()
-                .antMatchers("/product/**").access("#oauth2.hasScope('product_info')");
+                .anyRequest().authenticated();
         // @formatter:on
     }
     

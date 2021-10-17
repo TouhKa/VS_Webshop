@@ -23,10 +23,9 @@ public class CategoryResourceServerConfig extends ResourceServerConfigurerAdapte
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http
-                .antMatcher("/category/**")
+        http.antMatcher("/category/**")
                 .authorizeRequests()
-                .antMatchers("/category/**").access("#oauth2.hasScope('category_info')");
+                .anyRequest().authenticated();
         // @formatter:on
     }
 

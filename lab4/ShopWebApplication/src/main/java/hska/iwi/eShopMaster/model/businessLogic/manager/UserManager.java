@@ -10,7 +10,7 @@ public interface UserManager {
     
     public User getUserByUsername(String username);
     
-    public boolean deleteUserById(String id);
+//    public boolean deleteUserById(String id);
     
     public Role getRoleByLevel(int level);
     

@@ -1,45 +1,48 @@
 package hska.iwi.eShopMaster.model.businessLogic.manager.impl;
 
 
+import hska.iwi.eShopMaster.controller.microservices.CategoryServiceAction;
 import hska.iwi.eShopMaster.model.businessLogic.manager.CategoryManager;
-import hska.iwi.eShopMaster.model.database.dataAccessObjects.CategoryDAO;
-import hska.iwi.eShopMaster.model.database.dataobjects.Category;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Category;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CategoryManagerImpl implements CategoryManager{
-	private CategoryDAO helper;
-	
+
+	private CategoryServiceAction categoryServiceAction;
 	public CategoryManagerImpl() {
-		helper = new CategoryDAO();
+		categoryServiceAction = new CategoryServiceAction();
 	}
 
 	public List<Category> getCategories() {
-		return helper.getObjectList();
+		Category[] categories = categoryServiceAction.getAll();
+		return Arrays.asList(categories);
 	}
 
 	public Category getCategory(int id) {
-		return helper.getObjectById(id);
+		return categoryServiceAction.getCategoryById(id);
 	}
 
 	public Category getCategoryByName(String name) {
-		return helper.getObjectByName(name);
+		return categoryServiceAction.getCategoryByName(name);
 	}
 
 	public void addCategory(String name) {
 		Category cat = new Category(name);
-		helper.saveObject(cat);
-
+		categoryServiceAction.addCategory(cat);
 	}
 
 	public void delCategory(Category cat) {
-	
-// 		Products are also deleted because of relation in Category.java 
-		helper.deleteById(cat.getId());
+	//TODO Daniel
+	// must be replaced with corresponding action of catalogue
+
+//		helper.deleteById(cat.getId());
 	}
 
 	public void delCategoryById(int id) {
-		
-		helper.deleteById(id);
+		//TODO Daniel
+		// must be replaced with corresponding action of catalogue
+//		helper.deleteById(id);
 	}
 }

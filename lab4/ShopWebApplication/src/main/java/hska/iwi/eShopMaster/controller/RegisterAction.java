@@ -31,7 +31,8 @@ public class RegisterAction extends ActionSupport {
 
         UserManager userManager = new UserManagerImpl();
 
-        //TODO change this.role to type "int" and set to 1 -> regular User
+        //TODO Daniel
+        // Das sollte den Role Service addressieren
    		this.role = userManager.getRoleByLevel(1); // 1 -> regular User, 2-> Admin
 
    		if (!userManager.doesUserAlreadyExist(this.username)) {

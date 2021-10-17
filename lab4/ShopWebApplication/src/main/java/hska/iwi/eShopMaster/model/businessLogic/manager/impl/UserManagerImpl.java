@@ -22,21 +22,15 @@ public class UserManagerImpl implements UserManager {
 	public void registerUser(String username, String name, String lastname, String password, Role role) {
 		User newUser = new User(role.getId(), name, lastname, username, password);
 		User newUserAnswer =  userServiceAction.addUser(newUser);
-		DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
-		logger.write("New User: " + newUserAnswer.getUsername());
-		logger.close();
 	}
 
 	public User searchUser(User[] users, String username){
 		try {
-			DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
 			for (int i = 0; i < users.length; i++) {
-				logger.write(users[i].getUsername() + ", " + users[i].getPassword());
 				if (users[i].getUsername().equals(username)) {
 					return users[i];
 
 				}
-			logger.close();
 			}
 		}catch(Exception e){
 			e.printStackTrace();

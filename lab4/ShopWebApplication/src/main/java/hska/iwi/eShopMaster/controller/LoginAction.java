@@ -3,12 +3,9 @@ package hska.iwi.eShopMaster.controller;
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.UserManagerImpl;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
-
 import java.util.Map;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import hska.iwi.eShopMaster.model.util.DockerLogger;
 
 public class LoginAction extends ActionSupport {
 
@@ -18,8 +15,6 @@ public class LoginAction extends ActionSupport {
 	private String firstname;
 	private String lastname;
 	private String role;
-
-	DockerLogger logger = new DockerLogger(LoginAction.class.getSimpleName());
 
 	@Override
 	public String execute() throws Exception {
@@ -31,9 +26,6 @@ public class LoginAction extends ActionSupport {
 
 		// Get user from microservice:
 		User user = myCManager.getUserByUsername(getUsername());
-
-		logger.write("Username: " + user.getPassword());
-		logger.write("Password: " + user.getUsername());
 
 		// Does user exist?
 		if (user != null) {
@@ -58,14 +50,12 @@ public class LoginAction extends ActionSupport {
 				result = "success";
 			}
 			else {
-				logger.write("Password wrong: " + user.getPassword() + ", " + getPassword());
 				addActionError(getText("error.password.wrong"));
 			}
 		}
 		else {
 			addActionError(getText("error.username.wrong"));
 		}
-		logger.close();
 		return result;
 	}
 	

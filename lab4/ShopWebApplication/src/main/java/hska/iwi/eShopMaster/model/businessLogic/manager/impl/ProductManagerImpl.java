@@ -9,20 +9,15 @@ import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Produ
 import hska.iwi.eShopMaster.model.util.DockerLogger;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class ProductManagerImpl implements ProductManager {
-//	private ProductDAO helper;
 
-	private CategoryServiceAction categoryServiceAction;
 	private ProductServiceAction productServiceAction;
-	private DockerLogger logger;
 
 	public ProductManagerImpl() {
-		logger = new DockerLogger(ProductManagerImpl.class.getSimpleName());
-		categoryServiceAction = new CategoryServiceAction();
+
 		productServiceAction = new ProductServiceAction();
 	}
 
@@ -37,8 +32,6 @@ public class ProductManagerImpl implements ProductManager {
 		Optional<String> minP = searchMinPrice== null ? null : Optional.ofNullable(String.valueOf(searchMinPrice));
 		Optional<String> maxP = searchMaxPrice== null ? null : Optional.ofNullable(String.valueOf(searchMaxPrice));
 
-		logger.write("Product search params: " + sD + ", " + minP + ", " + maxP);
-		logger.close();
 		Product[] products =  productServiceAction.getAllProducts(sD, minP, maxP);
 		return Arrays.asList(products);
 	}
@@ -65,8 +58,9 @@ public class ProductManagerImpl implements ProductManager {
 			} else{
 				product = new Product(name, price, category.getId(), details);
 			}
-			
-			productServiceAction.addProduct(product);
+
+			//TODO Daniel: Das hier muss mit dem Catalogue ausgeführt werden
+			//productServiceAction.addProduct(product);
 			productId = product.getId();
 		}
 			 

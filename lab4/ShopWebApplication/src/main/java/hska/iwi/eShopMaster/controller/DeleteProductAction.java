@@ -1,7 +1,7 @@
 package hska.iwi.eShopMaster.controller;
 
-import hska.iwi.eShopMaster.model.database.dataAccessObjects.ProductDAO;
-import hska.iwi.eShopMaster.model.database.dataobjects.User;
+import hska.iwi.eShopMaster.controller.microservices.ProductServiceAction;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class DeleteProductAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 3666796923937616729L;
-
+	private ProductServiceAction productServiceAction = new ProductServiceAction();
 	private int id;
 
 	public String execute() throws Exception {
@@ -24,9 +24,9 @@ public class DeleteProductAction extends ActionSupport {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		User user = (User) session.get("webshop_user");
 		
-		if(user != null && (user.getRole().getTyp().equals("admin"))) {
+		if(user != null && (user.getRoleId()==2)) {
 
-			new ProductDAO().deleteById(id);
+			productServiceAction.deleteProduct(id);
 			{
 				res = "success";
 			}

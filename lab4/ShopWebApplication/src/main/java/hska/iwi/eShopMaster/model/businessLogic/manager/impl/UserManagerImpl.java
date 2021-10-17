@@ -12,7 +12,7 @@ import hska.iwi.eShopMaster.model.util.DockerLogger;
 @SuppressWarnings("deprecation")
 public class UserManagerImpl implements UserManager {
 	UserDAO helper;
-	DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
+
 
 	UserServiceAction userServiceAction = new UserServiceAction();
 	public UserManagerImpl() {
@@ -22,14 +22,11 @@ public class UserManagerImpl implements UserManager {
 	public void registerUser(String username, String name, String lastname, String password, Role role) {
 		User newUser = new User(role.getId(), name, lastname, username, password);
 		User newUserAnswer =  userServiceAction.addUser(newUser);
-		logger.write("New User: " +newUserAnswer.getUsername());
 	}
 
 	public User searchUser(User[] users, String username){
 		try {
 			for (int i = 0; i < users.length; i++) {
-				logger.write(users[i].getUsername() + ", " + users[i].getPassword());
-				logger.close();
 				if (users[i].getUsername().equals(username)) {
 					return users[i];
 
@@ -49,15 +46,7 @@ public class UserManagerImpl implements UserManager {
 		return searchUser(users, username);
 	}
 
-	//TODO this method is never implemented in the legacy webshop
-	public boolean deleteUserById(String id) {
-		hska.iwi.eShopMaster.model.database.dataobjects.User user = new hska.iwi.eShopMaster.model.database.dataobjects.User();
-		user.setId(Integer.parseInt(id));
-		helper.deleteObject(user);
-		userServiceAction.deleteUser(id);
-		return true;
-	}
-	//TODO delete as not needed anymore
+	//TODO role service
 	public Role getRoleByLevel(int level) {
 		RoleDAO roleHelper = new RoleDAO();
 		return roleHelper.getRoleByLevel(level);
@@ -65,7 +54,7 @@ public class UserManagerImpl implements UserManager {
 
 	public boolean doesUserAlreadyExist(String username) {
 		User dbUser = this.getUserByUsername(username);
-    	
+		DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
     	if ((dbUser.getFirstname() == null )&& (dbUser.getFirstname() != "fallback")){
 			logger.write("User " + username + " is existing");
 			logger.close();

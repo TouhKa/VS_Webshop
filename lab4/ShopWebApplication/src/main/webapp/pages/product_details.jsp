@@ -56,6 +56,7 @@
 				<tr>
 					<td><s:text name="details.category" /></td>
 					<td><s:property value="category.name" /></td>
+
 				</tr>
 				<tr>
 					<td><s:text name="details.details" /></td>

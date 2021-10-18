@@ -1,15 +1,17 @@
 package hska.iwi.eShopMaster.controller;
 
-import hska.iwi.eShopMaster.model.businessLogic.manager.ProductManager;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.ProductManagerImpl;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Product;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
-
-import java.util.List;
-import java.util.Map;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import hska.iwi.eShopMaster.model.businessLogic.manager.CategoryManager;
+import hska.iwi.eShopMaster.model.businessLogic.manager.ProductManager;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.CategoryManagerImpl;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.ProductManagerImpl;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Category;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Product;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class ListAllProductsAction extends ActionSupport {
 
@@ -20,7 +22,8 @@ public class ListAllProductsAction extends ActionSupport {
 	
 	User user;
 	private List<Product> products;
-	
+	private List<Category> categories = new ArrayList<Category>();
+
 	public String execute() throws Exception{
 		String result = "input";
 		
@@ -31,6 +34,10 @@ public class ListAllProductsAction extends ActionSupport {
 			System.out.println("list all products!");
 			ProductManager productManager = new ProductManagerImpl();
 			this.products = productManager.getProducts();
+			CategoryManager categoryManager = new CategoryManagerImpl();
+			for (Product product : products) {
+				categories.add(categoryManager.getCategory(product.getCategoryId()));
+			}
 			result = "success";
 		}
 		
@@ -47,6 +54,10 @@ public class ListAllProductsAction extends ActionSupport {
 	
 	public List<Product> getProducts() {
 		return products;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
 	}
 
 	public void setProducts(List<Product> products) {

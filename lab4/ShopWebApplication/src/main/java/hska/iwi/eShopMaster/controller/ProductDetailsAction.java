@@ -1,7 +1,10 @@
 package hska.iwi.eShopMaster.controller;
 
+import hska.iwi.eShopMaster.model.businessLogic.manager.CategoryManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.ProductManager;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.CategoryManagerImpl;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.ProductManagerImpl;
+import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Category;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Product;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
 
@@ -9,6 +12,7 @@ import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import hska.iwi.eShopMaster.model.util.DockerLogger;
 
 public class ProductDetailsAction extends ActionSupport {
 	
@@ -18,6 +22,7 @@ public class ProductDetailsAction extends ActionSupport {
 	private Integer searchMinPrice;
 	private Integer searchMaxPrice;
 	private Product product;
+	private Category category;
 
 	/**
 	 * 
@@ -30,11 +35,14 @@ public class ProductDetailsAction extends ActionSupport {
 		
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		user = (User) session.get("webshop_user");
-		
+		DockerLogger logger = new DockerLogger(ProductDetailsAction.class.getSimpleName());
 		if(user != null) {
 			ProductManager productManager = new ProductManagerImpl();
 			product = productManager.getProductById(id);
-			
+			CategoryManager categoryManager = new CategoryManagerImpl();
+			category = categoryManager.getCategory(product.getCategoryId());
+			logger.write(category.getName());
+
 			res = "success";			
 		}
 		
@@ -88,4 +96,6 @@ public class ProductDetailsAction extends ActionSupport {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+	public Category getCategory() { return category; }
 }

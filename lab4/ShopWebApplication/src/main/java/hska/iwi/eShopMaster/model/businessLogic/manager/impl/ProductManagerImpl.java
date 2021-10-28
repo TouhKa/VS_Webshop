@@ -57,12 +57,20 @@ public class ProductManagerImpl implements ProductManager {
 				product = new Product(name, price, category.getId(), details);
 			}
 
-			// TODO unsicher wieso hier catalogue aufgerufen werden muss?
-			productService.addProduct(product);
-			productId = product.getId();
+			Product addedProduct = catalogueService.addProduct(product);
+			if (addedProduct != null) {
+				// a product was successfully added
+				productId = addedProduct.getId();
+				
+			}
+
 		}
 			 
 		return productId;
 	}
-
+	
+	@Override
+	public void deleteProduct(int id) {
+	
+	}
 }

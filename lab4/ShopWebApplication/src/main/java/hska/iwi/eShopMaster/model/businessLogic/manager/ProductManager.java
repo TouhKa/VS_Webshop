@@ -13,6 +13,8 @@ public interface ProductManager {
 	int addProduct(String name, double price, int categoryId, String details);
 
 	List<Product> getProductsForSearchValues(String searchDescription, Double searchMinPrice, Double searchMaxPrice);
+	
+	void deleteProduct(int id);
     
 	
 }

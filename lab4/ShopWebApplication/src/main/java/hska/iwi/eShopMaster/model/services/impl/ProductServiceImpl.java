@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
         restTemplate.put(productServiceURL, product, Product.class);
     }
 
-    public void deleteProduct(Integer productId) {
+    public void deleteProduct(int productId) {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
         restTemplate.delete(productServiceURL + productId, Product.class);
     }

@@ -1,6 +1,7 @@
-package hska.iwi.eShopMaster.controller.microservices;
+package hska.iwi.eShopMaster.model.services.impl;
 
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Product;
+import hska.iwi.eShopMaster.model.data.objects.Product;
+import hska.iwi.eShopMaster.model.services.ProductService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -12,13 +13,14 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Configuration
 @EnableOAuth2Client
 @SuppressWarnings("deprecation")
-public class ProductServiceAction {
+public class ProductServiceImpl implements ProductService {
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
     private String productServiceURL = "http://zuul:8091/product/";
     private String clientId = "webshop-client";
@@ -40,7 +42,7 @@ public class ProductServiceAction {
         details.setAuthenticationScheme(AuthenticationScheme.header);
         details.setClientAuthenticationScheme(AuthenticationScheme.header);
         details.setId("1");
-        details.setTokenName("Category_Service");
+        details.setTokenName("Product_Service");
         return details;
     }
 
@@ -55,17 +57,18 @@ public class ProductServiceAction {
         return restTemplate.getForObject(productServiceURL + productId, Product.class);
     }
 
-    public Product addProduct(Product product) {
+    public void addProduct(Product product) {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
         restTemplate.put(productServiceURL, product, Product.class);
-        return restTemplate.getForObject(productServiceURL + product.getId(), Product.class);
-
+        restTemplate.getForObject(productServiceURL + product.getId(), Product.class);
     }
 
-    public Product[] getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
+    // maybe we can scrap the optionals here?
+    public List<Product> getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
         String parameters = this.createParameterString(searchValue, priceMinValue, priceMaxValue);
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        return restTemplate.getForObject(productServiceURL+parameters, Product[].class);
+        Product[] products = restTemplate.getForObject(productServiceURL+parameters, Product[].class);
+        return Arrays.asList(products);
     }
 
     private String createParameterString(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {
@@ -96,9 +99,10 @@ public class ProductServiceAction {
         return "";
     }
 
-    public Product[] getAllProducts() {
+    public List<Product> getAllProducts() {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        return restTemplate.getForObject(productServiceURL, Product[].class);
+        Product[] products = restTemplate.getForObject(productServiceURL, Product[].class);
+        return Arrays.asList(products != null ? products : new Product[0]);
     }
 
     public void updateProduct(Product product) {
@@ -112,10 +116,9 @@ public class ProductServiceAction {
     }
 
     public Product getProductByName(String name) {
-        Product[] products = this.getAllProducts();
-        for (int i = 0; i < products.length; i++) {
-            if (products[i].getName().equals(name)) {
-                return products[i];
+        for (Product product : getAllProducts()) {
+            if (product.getName().equals(name)) {
+                return product;
 
             }
         }

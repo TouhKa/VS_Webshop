@@ -1,35 +1,37 @@
 package hska.iwi.eShopMaster.model.businessLogic.manager.impl;
 
-import hska.iwi.eShopMaster.controller.LoginAction;
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
-import hska.iwi.eShopMaster.model.database.dataAccessObjects.RoleDAO;
-import hska.iwi.eShopMaster.model.database.dataAccessObjects.UserDAO;
-import hska.iwi.eShopMaster.model.database.dataobjects.Role;
-import hska.iwi.eShopMaster.controller.microservices.UserServiceAction;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
+import hska.iwi.eShopMaster.model.data.objects.Role;
+import hska.iwi.eShopMaster.model.services.RoleService;
+import hska.iwi.eShopMaster.model.services.UserService;
+import hska.iwi.eShopMaster.model.services.impl.RoleServiceImpl;
+import hska.iwi.eShopMaster.model.services.impl.UserServiceImpl;
+import hska.iwi.eShopMaster.model.data.objects.User;
 import hska.iwi.eShopMaster.model.util.DockerLogger;
 
 @SuppressWarnings("deprecation")
 public class UserManagerImpl implements UserManager {
-	UserDAO helper;
 
-
-	UserServiceAction userServiceAction = new UserServiceAction();
+	private final UserService userService;
+	
+	private final RoleService roleService;
+	
 	public UserManagerImpl() {
-		helper = new UserDAO();
+		userService = new UserServiceImpl();
+		roleService = new RoleServiceImpl();
 	}
 
 	public void registerUser(String username, String name, String lastname, String password, Role role) {
 		User newUser = new User(role.getId(), name, lastname, username, password);
-		User newUserAnswer =  userServiceAction.addUser(newUser);
+		userService.addUser(newUser);
 	}
 
 	public User searchUser(User[] users, String username){
 		try {
-			for (int i = 0; i < users.length; i++) {
-				if (users[i].getUsername().equals(username)) {
-					return users[i];
-
+			for (User user : users) {
+				if (user.getUsername().equals(username)) {
+					return user;
+					
 				}
 			}
 		}catch(Exception e){
@@ -42,20 +44,18 @@ public class UserManagerImpl implements UserManager {
 		if (username == null || username.equals("")) {
 			return null;
 		}
-		User[] users = userServiceAction.getAllUsers();
+		User[] users = userService.getAllUsers();
 		return searchUser(users, username);
 	}
 
-	//TODO role service
 	public Role getRoleByLevel(int level) {
-		RoleDAO roleHelper = new RoleDAO();
-		return roleHelper.getRoleByLevel(level);
+		return roleService.getRoleByLevel(level);
 	}
 
 	public boolean doesUserAlreadyExist(String username) {
 		User dbUser = this.getUserByUsername(username);
 		DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
-    	if ((dbUser.getFirstname() == null )&& (dbUser.getFirstname() != "fallback")){
+    	if (dbUser.getFirstname() != null && !dbUser.getFirstname().equals("fallback")) {
 			logger.write("User " + username + " is existing");
 			logger.close();
     		return true;

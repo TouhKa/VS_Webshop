@@ -1,4 +1,4 @@
-package hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices;
+package hska.iwi.eShopMaster.model.data.objects;
 
 
 import javax.persistence.Entity;

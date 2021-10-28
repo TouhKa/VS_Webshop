@@ -23,7 +23,7 @@
 		<module>categories</module>
 		<module>products</module>
 		<module>roles</module>
-<!--		<module>ShopWebApplication</module>-->
+		<!--<module>ShopWebApplication</module>-->
 		<module>users</module>
 	</modules>
 
@@ -32,13 +32,5 @@
 	</properties>
 
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

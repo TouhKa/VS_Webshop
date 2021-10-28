@@ -4,8 +4,8 @@ import hska.iwi.eShopMaster.model.businessLogic.manager.CategoryManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.ProductManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.CategoryManagerImpl;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.ProductManagerImpl;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Category;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
+import hska.iwi.eShopMaster.model.data.objects.Category;
+import hska.iwi.eShopMaster.model.data.objects.User;
 
 import java.util.List;
 import java.util.Map;

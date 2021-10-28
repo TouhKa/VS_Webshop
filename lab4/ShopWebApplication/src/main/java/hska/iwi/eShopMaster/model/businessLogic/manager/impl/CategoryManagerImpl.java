@@ -1,48 +1,42 @@
 package hska.iwi.eShopMaster.model.businessLogic.manager.impl;
 
 
-import hska.iwi.eShopMaster.controller.microservices.CategoryServiceAction;
+import hska.iwi.eShopMaster.model.services.CatalogueService;
+import hska.iwi.eShopMaster.model.services.CategoryService;
+import hska.iwi.eShopMaster.model.services.impl.CatalogueServiceImpl;
+import hska.iwi.eShopMaster.model.services.impl.CategoryServiceImpl;
 import hska.iwi.eShopMaster.model.businessLogic.manager.CategoryManager;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Category;
+import hska.iwi.eShopMaster.model.data.objects.Category;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class CategoryManagerImpl implements CategoryManager{
 
-	private CategoryServiceAction categoryServiceAction;
+	private final CategoryService categoryService;
+	
+	private final CatalogueService catalogueService;
+	
 	public CategoryManagerImpl() {
-		categoryServiceAction = new CategoryServiceAction();
+		categoryService = new CategoryServiceImpl();
+		catalogueService = new CatalogueServiceImpl();
 	}
 
 	public List<Category> getCategories() {
-		Category[] categories = categoryServiceAction.getAll();
+		Category[] categories = categoryService.getAll();
 		return Arrays.asList(categories);
 	}
 
 	public Category getCategory(int id) {
-		return categoryServiceAction.getCategoryById(id);
-	}
-
-	public Category getCategoryByName(String name) {
-		return categoryServiceAction.getCategoryByName(name);
+		return categoryService.getCategoryById(id);
 	}
 
 	public void addCategory(String name) {
 		Category cat = new Category(name);
-		categoryServiceAction.addCategory(cat);
-	}
-
-	public void delCategory(Category cat) {
-	//TODO Daniel
-	// must be replaced with corresponding action of catalogue
-
-//		helper.deleteById(cat.getId());
+		categoryService.addCategory(cat);
 	}
 
 	public void delCategoryById(int id) {
-		//TODO Daniel
-		// must be replaced with corresponding action of catalogue
-//		helper.deleteById(id);
+		catalogueService.deleteCategory(id);
 	}
 }

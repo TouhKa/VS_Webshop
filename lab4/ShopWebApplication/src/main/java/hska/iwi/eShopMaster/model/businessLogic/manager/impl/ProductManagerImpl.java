@@ -1,29 +1,32 @@
 package hska.iwi.eShopMaster.model.businessLogic.manager.impl;
 
-import hska.iwi.eShopMaster.controller.microservices.CategoryServiceAction;
-import hska.iwi.eShopMaster.controller.microservices.ProductServiceAction;
+import hska.iwi.eShopMaster.model.services.CatalogueService;
+import hska.iwi.eShopMaster.model.services.CategoryService;
+import hska.iwi.eShopMaster.model.services.ProductService;
+import hska.iwi.eShopMaster.model.services.impl.CatalogueServiceImpl;
+import hska.iwi.eShopMaster.model.services.impl.ProductServiceImpl;
 import hska.iwi.eShopMaster.model.businessLogic.manager.CategoryManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.ProductManager;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Category;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.Product;
-import hska.iwi.eShopMaster.model.util.DockerLogger;
+import hska.iwi.eShopMaster.model.data.objects.Category;
+import hska.iwi.eShopMaster.model.data.objects.Product;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class ProductManagerImpl implements ProductManager {
 
-	private ProductServiceAction productServiceAction;
+	private final ProductService productService;
+	
+	private final CatalogueService catalogueService;
 
 	public ProductManagerImpl() {
 
-		productServiceAction = new ProductServiceAction();
+		productService = new ProductServiceImpl();
+		catalogueService = new CatalogueServiceImpl();
 	}
 
 	public List<Product> getProducts() {
-		Product[] products =  productServiceAction.getAllProducts();
-		return Arrays.asList(products);
+		return productService.getAllProducts();
 	}
 	
 	public List<Product> getProductsForSearchValues(String searchDescription,
@@ -32,17 +35,11 @@ public class ProductManagerImpl implements ProductManager {
 		Optional<String> minP = searchMinPrice== null ? null : Optional.ofNullable(String.valueOf(searchMinPrice));
 		Optional<String> maxP = searchMaxPrice== null ? null : Optional.ofNullable(String.valueOf(searchMaxPrice));
 
-		Product[] products =  productServiceAction.getAllProducts(sD, minP, maxP);
-		return Arrays.asList(products);
+		return productService.getAllProducts(sD, minP, maxP);
 	}
 
 	public Product getProductById(int id) {
-
-		return productServiceAction.getProduct(id);
-	}
-
-	public Product getProductByName(String name) {
-		return productServiceAction.getProductByName(name);
+		return productService.getProduct(id);
 	}
 	
 	public int addProduct(String name, double price, int categoryId, String details) {
@@ -53,29 +50,27 @@ public class ProductManagerImpl implements ProductManager {
 		
 		if(!category.getName().equals("fallback")){
 			Product product;
-			if(details == null){
+			if (details == null) {
 				product = new Product(name, price, category.getId(), "");
-			} else{
+			}
+			else {
 				product = new Product(name, price, category.getId(), details);
 			}
 
-			//TODO Daniel: Das hier muss mit dem Catalogue ausgeführt werden
-			//productServiceAction.addProduct(product);
-			productId = product.getId();
+			Product addedProduct = catalogueService.addProduct(product);
+			if (addedProduct != null) {
+				// a product was successfully added
+				productId = addedProduct.getId();
+				
+			}
+
 		}
 			 
 		return productId;
 	}
-
-
-
-	public void deleteProductById(int id) {
-		productServiceAction.deleteProduct(id);
+	
+	@Override
+	public void deleteProduct(int id) {
+	
 	}
-
-	public boolean deleteProductsByCategoryId(int categoryId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

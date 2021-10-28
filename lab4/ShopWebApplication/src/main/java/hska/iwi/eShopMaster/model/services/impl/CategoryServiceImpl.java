@@ -1,8 +1,7 @@
-package hska.iwi.eShopMaster.controller.microservices;
+package hska.iwi.eShopMaster.model.services.impl;
 
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import hska.iwi.eShopMaster.model.data.objects.Category;
+import hska.iwi.eShopMaster.model.services.CategoryService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -13,21 +12,20 @@ import org.springframework.security.oauth2.client.token.DefaultAccessTokenReques
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 @EnableOAuth2Client
 @SuppressWarnings("deprecation")
-public class UserServiceAction {
+public class CategoryServiceImpl implements CategoryService {
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
-    private String userServiceURL = "http://zuul:8091/users/";
-    private String clientId = "user-service-client";
-    private String clientSecret = "user-service-secret";
-    private String userServiceScope = "user_info";
+    private String categoryServiceURL = "http://zuul:8091/category/";
+    private String clientId = "webshop-client";
+    private String clientSecret = "webshop-secret";
+    private String categoryServiceScope = "category_info";
 
-    // Create a Logger
-    private static final Logger log = LoggerFactory.getLogger(UserServiceAction.class);
 
     //pass client credentials to corresponding service
     public OAuth2ProtectedResourceDetails oAuth2ResourceDetails() {
@@ -37,13 +35,13 @@ public class UserServiceAction {
         details.setAccessTokenUri(authServerTokenURL);
 
         List<String> scope = new ArrayList<>();
-        scope.add(userServiceScope);
+        scope.add(categoryServiceScope);
         details.setScope(scope);
 
         details.setAuthenticationScheme(AuthenticationScheme.header);
         details.setClientAuthenticationScheme(AuthenticationScheme.header);
-        details.setId("1"); //is this needed?
-        details.setTokenName("User_Service");
+        details.setId("1");
+        details.setTokenName("Category_Service");
         return details;
     }
 
@@ -53,31 +51,38 @@ public class UserServiceAction {
         return new OAuth2RestTemplate(oAuth2ResourceDetails(), new DefaultOAuth2ClientContext(atr));
     }
 
-    public User[] getAllUsers() {
+    public Category[] getAll() {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        return  restTemplate.getForObject(userServiceURL, User[].class);
+        return restTemplate.getForObject(categoryServiceURL, Category[].class) ;
+    }
+    public void addCategory(Category category) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        restTemplate.postForObject(categoryServiceURL, category, Category.class);
+    }
+    public Category getCategoryById(int id) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        return restTemplate.getForObject(categoryServiceURL + id, Category.class);
     }
 
-    public User addUser(User user) {
+    public Category updateCategorie(Category category) {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        return restTemplate.postForObject(userServiceURL, user, User.class) ;
+        restTemplate.put(categoryServiceURL, category, Category.class);
+        return restTemplate.getForObject(categoryServiceURL + category.getId(), Category.class);
+    }
+    public void deleteCategory(int id) {
+        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
+        restTemplate.delete(categoryServiceURL + id);
     }
 
-    public User getUserById(String id) {
-        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        return restTemplate.getForObject(userServiceURL + id, User.class);
-    }
+    public Category getCategoryByName(String name) {
+        Category[] categories = this.getAll();
+        for (int i = 0; i < categories.length; i++) {
+            if (categories[i].getName().equals(name)) {
+                return categories[i];
 
-    public User updateUser(User user) {
-        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        restTemplate.put(userServiceURL, user);
-        //todo remove
-        return restTemplate.getForObject(userServiceURL + user.getId(), User.class);
-    }
-
-    public void deleteUser(String id) {
-        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        restTemplate.delete(userServiceURL + id);
+            }
+        }
+        return new Category("fallback");
     }
 
 }

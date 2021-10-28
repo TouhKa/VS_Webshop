@@ -2,7 +2,8 @@ package hska.iwi.eShopMaster.controller;
 
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.UserManagerImpl;
-import hska.iwi.eShopMaster.model.businessLogic.manager.impl.microservices.User;
+import hska.iwi.eShopMaster.model.data.objects.Role;
+import hska.iwi.eShopMaster.model.data.objects.User;
 import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -14,7 +15,7 @@ public class LoginAction extends ActionSupport {
 	private String password = null;
 	private String firstname;
 	private String lastname;
-	private String role;
+	private Role role;
 
 	@Override
 	public String execute() throws Exception {
@@ -22,10 +23,10 @@ public class LoginAction extends ActionSupport {
 		// Return string:
 		String result = "input";
 
-		UserManager myCManager = new UserManagerImpl();
+		UserManager userManager = new UserManagerImpl();
 
 		// Get user from microservice:
-		User user = myCManager.getUserByUsername(getUsername());
+		User user = userManager.getUserByUsername(getUsername());
 
 		// Does user exist?
 		if (user != null) {
@@ -40,12 +41,7 @@ public class LoginAction extends ActionSupport {
 				firstname= user.getFirstname();
 				lastname = user.getLastname();
 				long roleID = user.getRoleId();
-				//TOOD call Role service to extract the name of the roleId
-				if (roleID == 1) {
-					role = "user";
-				} else {
-					role = "admin";
-				}
+				role = userManager.getRoleByLevel(Math.toIntExact(roleID));
 
 				result = "success";
 			}
@@ -101,11 +97,11 @@ public class LoginAction extends ActionSupport {
 		this.lastname = lastname;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

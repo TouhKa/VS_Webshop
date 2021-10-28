@@ -2,7 +2,7 @@ package hska.iwi.eShopMaster.controller;
 
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.UserManagerImpl;
-import hska.iwi.eShopMaster.model.database.dataobjects.Role;
+import hska.iwi.eShopMaster.model.data.objects.Role;
 
 import java.util.Map;
 
@@ -31,8 +31,6 @@ public class RegisterAction extends ActionSupport {
 
         UserManager userManager = new UserManagerImpl();
 
-        //TODO Daniel
-        // Das sollte den Role Service addressieren
    		this.role = userManager.getRoleByLevel(1); // 1 -> regular User, 2-> Admin
 
    		if (!userManager.doesUserAlreadyExist(this.username)) {

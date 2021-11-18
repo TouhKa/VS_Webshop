@@ -24,7 +24,7 @@ public class LoginAction extends ActionSupport {
 		String result = "input";
 
 		UserManager userManager = new UserManagerImpl();
-		User user = userManager.getUserByPasswordCredentails(getUsername(), getPassword());
+		User user = userManager.getUserByPasswordCredentials(getUsername(), getPassword());
 
 		// Does user exist?
 		if (user != null) {

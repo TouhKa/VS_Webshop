@@ -10,7 +10,7 @@ public interface UserManager {
     
     User getUserByUsername(String username);
 
-    User getUserByPasswordCredentails(String username, String password);
+    User getUserByPasswordCredentials(String username, String password);
     
     Role getRoleByLevel(int level);
     

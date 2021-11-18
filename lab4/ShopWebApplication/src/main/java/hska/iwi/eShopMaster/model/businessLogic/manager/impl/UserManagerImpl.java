@@ -40,15 +40,11 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	public User getUserByUsername(String username) {
-		try {
-			if (username == null || username.equals("")) {
-				return null;
-			}
-			User[] users = userService.getAllUsers();
-			return searchUser(users, username);
-		}catch (Exception e) {
+		if (username == null || username.equals("")) {
 			return null;
 		}
+		User[] users = userService.getAllUsers();
+		return searchUser(users, username);
 	}
 
 	public User getUserByPasswordCredentials(String username, String password) {

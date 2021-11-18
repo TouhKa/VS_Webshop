@@ -11,7 +11,7 @@ public interface UserManager {
     User getUserByUsername(String username);
 
     User getUserByPasswordCredentials(String username, String password);
-    
+
     Role getRoleByLevel(int level);
     
     boolean doesUserAlreadyExist(String username);

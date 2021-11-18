@@ -11,8 +11,8 @@ import hska.iwi.eShopMaster.model.util.DockerLogger;
 @SuppressWarnings("deprecation")
 public class UserManagerImpl implements UserManager {
 
+	DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
 	private final UserService userService;
-	
 	private final RoleService roleService;
 	
 	public UserManagerImpl() {
@@ -40,19 +40,27 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	public User getUserByUsername(String username) {
-		if (username == null || username.equals("")) {
+		try {
+			if (username == null || username.equals("")) {
+				return null;
+			}
+			User[] users = userService.getAllUsers();
+			return searchUser(users, username);
+		}catch (Exception e) {
 			return null;
 		}
-		User[] users = userService.getAllUsers();
-		return searchUser(users, username);
 	}
 
-	public User getUserByPasswordCredentails(String username, String password) {
-		if (username == null || username.equals("")) {
+	public User getUserByPasswordCredentials(String username, String password) {
+		try {
+			if (username == null || username.equals("")) {
+				return null;
+			}
+			User[] users = userService.getLoginUser(username, password);
+			return searchUser(users, username);
+		}catch (Exception e) {
 			return null;
 		}
-		User[] users = userService.getLoginUser(username, password);
-		return searchUser(users, username);
 	}
 
 	public Role getRoleByLevel(int level) {
@@ -61,7 +69,6 @@ public class UserManagerImpl implements UserManager {
 
 	public boolean doesUserAlreadyExist(String username) {
 		User dbUser = this.getUserByUsername(username);
-		DockerLogger logger = new DockerLogger(UserManagerImpl.class.getSimpleName());
     	if (dbUser.getFirstname() != null && !dbUser.getFirstname().equals("fallback")) {
 			logger.write("User " + username + " is existing");
 			logger.close();

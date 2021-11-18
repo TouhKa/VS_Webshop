@@ -1,5 +1,6 @@
 package com.vslab.webshop.config;
 
+import com.vslab.webshop.DockerLogger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -20,10 +21,9 @@ import java.util.List;
 public class UserServiceAction {
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
     private String userServiceURL = "http://zuul:8091/users/";
-    private String clientId = "user-service-client";
-    private String clientSecret = "user-service-secret";
+    private String clientId = "webshop-client";
+    private String clientSecret = "webshop-secret";
     private String userServiceScope = "user_info";
-
 
     //pass client credentials to corresponding service
     public OAuth2ProtectedResourceDetails oAuth2ResourceDetails() {
@@ -52,12 +52,18 @@ public class UserServiceAction {
     public User getUserByName(String username) {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
 
-            User[] users = restTemplate.getForObject(userServiceURL, User[].class);
-            for (int i = 0; i < users.length; i++) {
-                if (users[i].getUsername() == username) {
-                    return users[i];
+        User[] users = restTemplate.getForObject(userServiceURL, User[].class);
+        try {
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    return user;
+
                 }
             }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
+
 }

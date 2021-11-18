@@ -1,5 +1,4 @@
 package hska.iwi.eShopMaster.model.businessLogic.manager.impl;
-
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
 import hska.iwi.eShopMaster.model.data.objects.Role;
 import hska.iwi.eShopMaster.model.services.RoleService;
@@ -45,6 +44,14 @@ public class UserManagerImpl implements UserManager {
 			return null;
 		}
 		User[] users = userService.getAllUsers();
+		return searchUser(users, username);
+	}
+
+	public User getUserByPasswordCredentails(String username, String password) {
+		if (username == null || username.equals("")) {
+			return null;
+		}
+		User[] users = userService.getLoginUser(username, password);
 		return searchUser(users, username);
 	}
 

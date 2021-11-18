@@ -9,6 +9,8 @@ public interface UserManager {
     void registerUser(String username, String name, String lastname, String password, Role role);
     
     User getUserByUsername(String username);
+
+    User getUserByPasswordCredentails(String username, String password);
     
     Role getRoleByLevel(int level);
     

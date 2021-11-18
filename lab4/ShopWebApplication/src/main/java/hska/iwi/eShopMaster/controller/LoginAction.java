@@ -1,12 +1,12 @@
 package hska.iwi.eShopMaster.controller;
 
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import hska.iwi.eShopMaster.model.businessLogic.manager.UserManager;
 import hska.iwi.eShopMaster.model.businessLogic.manager.impl.UserManagerImpl;
 import hska.iwi.eShopMaster.model.data.objects.Role;
 import hska.iwi.eShopMaster.model.data.objects.User;
 import java.util.Map;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport {
 
@@ -24,9 +24,7 @@ public class LoginAction extends ActionSupport {
 		String result = "input";
 
 		UserManager userManager = new UserManagerImpl();
-
-		// Get user from microservice:
-		User user = userManager.getUserByUsername(getUsername());
+		User user = userManager.getUserByPasswordCredentails(getUsername(), getPassword());
 
 		// Does user exist?
 		if (user != null) {

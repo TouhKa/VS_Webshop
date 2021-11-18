@@ -23,9 +23,10 @@ public class CatalogueResourceServerConfig extends ResourceServerConfigurerAdapt
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-             http.antMatcher("/catalogue/**")
+            http
+                .antMatcher("/catalogue/**")
                 .authorizeRequests()
-                .anyRequest().authenticated();
+                .antMatchers("/catalogue/**").access("#oauth2.hasScope('catalogue_info')");
         // @formatter:on
     }
 

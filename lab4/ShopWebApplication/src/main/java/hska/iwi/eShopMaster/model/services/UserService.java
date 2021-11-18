@@ -10,5 +10,6 @@ public interface UserService {
     void addUser(User user);
     
     User[] getAllUsers();
-    
+
+    User[] getLoginUser(String username, String password);
 }

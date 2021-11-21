@@ -3,9 +3,9 @@ package com.vslab.webshop.model.services;
 import com.vslab.webshop.model.data.objects.Product;
 
 /**
- * interface for the catalogue microservice
+ * interface that defines a class that can connect to the Catalogue microservice and execute queries and actions on it.
  */
-public interface CatalogueService {
+public interface CatalogueConnector {
     
     /**
      * deletes a category and all products that have this category

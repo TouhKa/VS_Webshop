@@ -2,9 +2,9 @@ package com.vslab.webshop.model.businessLogic.manager.impl;
 
 
 import com.vslab.webshop.model.data.objects.Category;
-import com.vslab.webshop.model.services.CatalogueService;
+import com.vslab.webshop.model.services.CatalogueConnector;
 import com.vslab.webshop.model.services.CategoryService;
-import com.vslab.webshop.model.services.impl.CatalogueServiceImpl;
+import com.vslab.webshop.model.services.impl.CatalogueConnectorImpl;
 import com.vslab.webshop.model.services.impl.CategoryServiceImpl;
 import com.vslab.webshop.model.businessLogic.manager.CategoryManager;
 
@@ -15,11 +15,11 @@ public class CategoryManagerImpl implements CategoryManager{
 
 	private final CategoryService categoryService;
 	
-	private final CatalogueService catalogueService;
+	private final CatalogueConnector catalogueConnector;
 	
 	public CategoryManagerImpl() {
 		categoryService = new CategoryServiceImpl();
-		catalogueService = new CatalogueServiceImpl();
+		catalogueConnector = new CatalogueConnectorImpl();
 	}
 
 	public List<Category> getCategories() {
@@ -37,6 +37,6 @@ public class CategoryManagerImpl implements CategoryManager{
 	}
 
 	public void delCategoryById(int id) {
-		catalogueService.deleteCategory(id);
+		catalogueConnector.deleteCategory(id);
 	}
 }

@@ -2,9 +2,9 @@ package com.vslab.webshop.model.businessLogic.manager.impl;
 
 import com.vslab.webshop.model.data.objects.Category;
 import com.vslab.webshop.model.data.objects.Product;
-import com.vslab.webshop.model.services.CatalogueService;
+import com.vslab.webshop.model.services.CatalogueConnector;
 import com.vslab.webshop.model.services.ProductService;
-import com.vslab.webshop.model.services.impl.CatalogueServiceImpl;
+import com.vslab.webshop.model.services.impl.CatalogueConnectorImpl;
 import com.vslab.webshop.model.services.impl.ProductServiceImpl;
 import com.vslab.webshop.model.businessLogic.manager.CategoryManager;
 import com.vslab.webshop.model.businessLogic.manager.ProductManager;
@@ -16,12 +16,12 @@ public class ProductManagerImpl implements ProductManager {
 
 	private final ProductService productService;
 	
-	private final CatalogueService catalogueService;
+	private final CatalogueConnector catalogueConnector;
 
 	public ProductManagerImpl() {
 
 		productService = new ProductServiceImpl();
-		catalogueService = new CatalogueServiceImpl();
+		catalogueConnector = new CatalogueConnectorImpl();
 	}
 
 	public List<Product> getProducts() {
@@ -56,7 +56,7 @@ public class ProductManagerImpl implements ProductManager {
 				product = new Product(name, price, category.getId(), details);
 			}
 
-			Product addedProduct = catalogueService.addProduct(product);
+			Product addedProduct = catalogueConnector.addProduct(product);
 			if (addedProduct != null) {
 				// a product was successfully added
 				productId = addedProduct.getId();

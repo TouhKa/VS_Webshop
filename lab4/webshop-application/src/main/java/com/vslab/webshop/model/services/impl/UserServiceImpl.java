@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         return new OAuth2RestTemplate(oAuth2ResourceDetails(), new DefaultOAuth2ClientContext(atr));
     }
 
-    @Bean(name = "passwordFestTemplate") // has to be done at runtime because the authorization server would not be up otherwise
+    @Bean(name = "passwordRestTemplate") // has to be done at runtime because the authorization server would not be up otherwise
     public OAuth2RestTemplate passwordRestTemplate() {
         AccessTokenRequest atr = new DefaultAccessTokenRequest();
         return new OAuth2RestTemplate(oAuthClientPasswordDetails(), new DefaultOAuth2ClientContext(atr));

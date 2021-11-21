@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.client.token.AccessTokenRequest;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
+import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 import org.springframework.security.oauth2.common.AuthenticationScheme;
 
 import java.util.ArrayList;
@@ -20,20 +21,21 @@ import java.util.List;
 public class CatalogueConnectorImpl implements CatalogueConnector {
     
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
-    private String categoryServiceURL = "http://zuul:8091/category/";
+    private String catalogueServiceURL = "http://zuul:8091/catalogue/";
     private String clientId = "webshop-client";
     private String clientSecret = "webshop-secret";
-    private String categoryServiceScope = "category_info";
+    private String catalogueServiceScope = "catalogue_info";
+
     
-    //pass client credentials to corresponding service
-    public OAuth2ProtectedResourceDetails oAuth2ResourceDetails() {
-        ClientCredentialsResourceDetails details = new ClientCredentialsResourceDetails();
+    public ResourceOwnerPasswordResourceDetails oAuthClientPasswordDetails() {
+        ResourceOwnerPasswordResourceDetails details = new ResourceOwnerPasswordResourceDetails();
+        
         details.setClientId(clientId);
         details.setClientSecret(clientSecret);
         details.setAccessTokenUri(authServerTokenURL);
         
         List<String> scope = new ArrayList<>();
-        scope.add(categoryServiceScope);
+        scope.add(catalogueServiceScope);
         details.setScope(scope);
         
         details.setAuthenticationScheme(AuthenticationScheme.header);
@@ -52,11 +54,13 @@ public class CatalogueConnectorImpl implements CatalogueConnector {
     
     @Override
     public Product addProduct(Product product) {
+        return null; //TODO
 
     }
     
     @Override
     public void deleteCategory(int id) {
+        // TODO
 
     }
 }

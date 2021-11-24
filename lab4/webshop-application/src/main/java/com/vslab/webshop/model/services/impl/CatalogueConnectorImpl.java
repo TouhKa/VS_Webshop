@@ -1,6 +1,8 @@
 package com.vslab.webshop.model.services.impl;
 
+import com.vslab.webshop.model.data.objects.Category;
 import com.vslab.webshop.model.data.objects.Product;
+import com.vslab.webshop.model.data.objects.Role;
 import com.vslab.webshop.model.services.CatalogueConnector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -25,11 +27,10 @@ public class CatalogueConnectorImpl implements CatalogueConnector {
     private String clientId = "webshop-client";
     private String clientSecret = "webshop-secret";
     private String catalogueServiceScope = "catalogue_info";
-
     
-    public ResourceOwnerPasswordResourceDetails oAuthClientPasswordDetails() {
-        ResourceOwnerPasswordResourceDetails details = new ResourceOwnerPasswordResourceDetails();
-        
+    
+    private OAuth2ProtectedResourceDetails oAuth2ResourceDetails() {
+        ClientCredentialsResourceDetails details = new ClientCredentialsResourceDetails();
         details.setClientId(clientId);
         details.setClientSecret(clientSecret);
         details.setAccessTokenUri(authServerTokenURL);
@@ -48,19 +49,20 @@ public class CatalogueConnectorImpl implements CatalogueConnector {
     @Bean(name = "passwordRestTemplate") // has to be done at runtime because the authorization server would not be up otherwise
     public OAuth2RestTemplate makeRestTemplate() {
         AccessTokenRequest atr = new DefaultAccessTokenRequest();
-        return new OAuth2RestTemplate(oAuthClientPasswordDetails(), new DefaultOAuth2ClientContext(atr));
+        return new OAuth2RestTemplate(oAuth2ResourceDetails(), new DefaultOAuth2ClientContext(atr));
     }
     
     
     @Override
     public Product addProduct(Product product) {
-        return null; //TODO
-
+        OAuth2RestTemplate restTemplate = makeRestTemplate();
+        restTemplate.put(catalogueServiceURL, product, Product.class);
+        return product;
     }
     
     @Override
     public void deleteCategory(int id) {
-        // TODO
-
+        OAuth2RestTemplate restTemplate = makeRestTemplate();
+        restTemplate.delete(catalogueServiceURL + id, Category.class);
     }
 }

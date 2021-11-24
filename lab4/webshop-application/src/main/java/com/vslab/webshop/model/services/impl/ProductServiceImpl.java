@@ -60,7 +60,6 @@ public class ProductServiceImpl implements ProductService {
     public void addProduct(Product product) {
         OAuth2RestTemplate restTemplate = awesomeRestTemplate();
         restTemplate.put(productServiceURL, product, Product.class);
-        restTemplate.getForObject(productServiceURL + product.getId(), Product.class);
     }
 
     // maybe we can scrap the optionals here?

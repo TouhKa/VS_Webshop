@@ -102,7 +102,7 @@ services:
 
   legacywebshop:
     build:
-      context: ../ShopWebApplication
+      context: ../webshop-application
       dockerfile: ./docker/Dockerfile
     ports:
       - "8888:8080"
@@ -113,7 +113,7 @@ services:
 
   web-shop-db-image:
     build:
-      context: ../ShopWebApplication
+      context: ../webshop-application
       dockerfile: ./docker/DockerfileMySQL
     volumes:
       - "./.data/db:/var/lib/mysql"

@@ -1,7 +1,7 @@
 package com.vslab.webshop.model.services.impl;
 
 import com.vslab.webshop.model.data.objects.Product;
-import com.vslab.webshop.model.services.ProductService;
+import com.vslab.webshop.model.services.ProductConnector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @Configuration
 @EnableOAuth2Client
 @SuppressWarnings("deprecation")
-public class ProductServiceImpl implements ProductService {
+public class ProductConnectorImpl implements ProductConnector {
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
     private String productServiceURL = "http://zuul:8091/product/";
     private String clientId = "webshop-client";
@@ -57,10 +57,6 @@ public class ProductServiceImpl implements ProductService {
         return restTemplate.getForObject(productServiceURL + productId, Product.class);
     }
 
-    public void addProduct(Product product) {
-        OAuth2RestTemplate restTemplate = awesomeRestTemplate();
-        restTemplate.put(productServiceURL, product, Product.class);
-    }
 
     // maybe we can scrap the optionals here?
     public List<Product> getAllProducts(Optional<String> searchValue, Optional<String> priceMinValue, Optional<String> priceMaxValue) {

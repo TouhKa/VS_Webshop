@@ -8,15 +8,13 @@ import java.util.Optional;
 /**
  * interface for the product microservice
  */
-public interface ProductService {
+public interface ProductConnector {
     
     Product getProduct(Integer id);
     
     List<Product> getAllProducts();
     
     List<Product> getAllProducts(Optional<String> searchValue, Optional<String> minPrice, Optional<String> maxPrice);
-    
-    void addProduct(Product product);
     
     void deleteProduct(int id);
     

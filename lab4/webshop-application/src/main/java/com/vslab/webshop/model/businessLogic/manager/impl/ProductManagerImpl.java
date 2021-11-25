@@ -3,9 +3,9 @@ package com.vslab.webshop.model.businessLogic.manager.impl;
 import com.vslab.webshop.model.data.objects.Category;
 import com.vslab.webshop.model.data.objects.Product;
 import com.vslab.webshop.model.services.CatalogueConnector;
-import com.vslab.webshop.model.services.ProductService;
+import com.vslab.webshop.model.services.ProductConnector;
 import com.vslab.webshop.model.services.impl.CatalogueConnectorImpl;
-import com.vslab.webshop.model.services.impl.ProductServiceImpl;
+import com.vslab.webshop.model.services.impl.ProductConnectorImpl;
 import com.vslab.webshop.model.businessLogic.manager.CategoryManager;
 import com.vslab.webshop.model.businessLogic.manager.ProductManager;
 import com.vslab.webshop.model.util.DockerLogger;
@@ -14,18 +14,18 @@ import java.util.Optional;
 
 public class ProductManagerImpl implements ProductManager {
 	private DockerLogger logger = new DockerLogger(ProductManagerImpl.class.getSimpleName());
-	private final ProductService productService;
+	private final ProductConnector productConnector;
 	
 	private final CatalogueConnector catalogueConnector;
 
 	public ProductManagerImpl() {
 
-		productService = new ProductServiceImpl();
+		productConnector = new ProductConnectorImpl();
 		catalogueConnector = new CatalogueConnectorImpl();
 	}
 
 	public List<Product> getProducts() {
-		return productService.getAllProducts();
+		return productConnector.getAllProducts();
 	}
 	
 	public List<Product> getProductsForSearchValues(String searchDescription,
@@ -34,11 +34,11 @@ public class ProductManagerImpl implements ProductManager {
 		Optional<String> minP = searchMinPrice== null ? null : Optional.ofNullable(String.valueOf(searchMinPrice));
 		Optional<String> maxP = searchMaxPrice== null ? null : Optional.ofNullable(String.valueOf(searchMaxPrice));
 
-		return productService.getAllProducts(sD, minP, maxP);
+		return productConnector.getAllProducts(sD, minP, maxP);
 	}
 
 	public Product getProductById(int id) {
-		return productService.getProduct(id);
+		return productConnector.getProduct(id);
 	}
 	
 	public int addProduct(String name, double price, int categoryId, String details) {
@@ -74,6 +74,6 @@ public class ProductManagerImpl implements ProductManager {
 	
 	@Override
 	public void deleteProduct(int id) {
-	
+		productConnector.deleteProduct(id);
 	}
 }

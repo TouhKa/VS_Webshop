@@ -57,18 +57,21 @@ public class ProductManagerImpl implements ProductManager {
 			}
 			logger.write("Product name " + product.getName());
 			logger.close();
+			try {
+				Product addedProduct = catalogueConnector.addProduct(product);
+				logger.write("Added Product name " + addedProduct.getName());
+				logger.close();
+				if (addedProduct != null) {
+					// a product was successfully added
+					productId = addedProduct.getId();
 
-			Product addedProduct = catalogueConnector.addProduct(product);
-			logger.write("Added Product name " + addedProduct.getName());
-			logger.close();
-			if (addedProduct != null) {
-				// a product was successfully added
-				productId = addedProduct.getId();
-				
+				}
+				return productId;
+
+			}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
-
-		}
-			 
 		return productId;
 	}
 	

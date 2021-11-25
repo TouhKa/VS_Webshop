@@ -92,7 +92,7 @@ public class CatalogueService {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<Product> requestEntity = new HttpEntity<>(product, headers);
-            return productRestTemplate.postForObject(productServiceURL, requestEntity, Product.class);
+            return (Product) productRestTemplate.postForObject(productServiceURL, product, Product.class);
         }else {
             throw new CustomErrorResponse("Resource or Service not found");
         }

@@ -8,12 +8,12 @@ import com.vslab.webshop.model.services.impl.CatalogueConnectorImpl;
 import com.vslab.webshop.model.services.impl.ProductServiceImpl;
 import com.vslab.webshop.model.businessLogic.manager.CategoryManager;
 import com.vslab.webshop.model.businessLogic.manager.ProductManager;
-
+import com.vslab.webshop.model.util.DockerLogger;
 import java.util.List;
 import java.util.Optional;
 
 public class ProductManagerImpl implements ProductManager {
-
+	private DockerLogger logger = new DockerLogger(ProductManagerImpl.class.getSimpleName());
 	private final ProductService productService;
 	
 	private final CatalogueConnector catalogueConnector;
@@ -43,10 +43,10 @@ public class ProductManagerImpl implements ProductManager {
 	
 	public int addProduct(String name, double price, int categoryId, String details) {
 		int productId = -1;
-		
 		CategoryManager categoryManager = new CategoryManagerImpl();
 		Category category = categoryManager.getCategory(categoryId);
-		
+		logger.write("Category name " + category.getName());
+		logger.close();
 		if(!category.getName().equals("fallback")){
 			Product product;
 			if (details == null) {
@@ -55,8 +55,12 @@ public class ProductManagerImpl implements ProductManager {
 			else {
 				product = new Product(name, price, category.getId(), details);
 			}
+			logger.write("Product name " + product.getName());
+			logger.close();
 
 			Product addedProduct = catalogueConnector.addProduct(product);
+			logger.write("Added Product name " + addedProduct.getName());
+			logger.close();
 			if (addedProduct != null) {
 				// a product was successfully added
 				productId = addedProduct.getId();

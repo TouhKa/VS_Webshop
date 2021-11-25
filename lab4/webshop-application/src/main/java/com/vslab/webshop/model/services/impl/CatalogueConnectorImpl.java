@@ -21,7 +21,7 @@ import java.util.List;
  * the Catalogue connector uses the Resource Owner Password Credentials to authenticate at the catalogue microservice
  */
 public class CatalogueConnectorImpl implements CatalogueConnector {
-    
+
     private String authServerTokenURL = "http://auth-server:8092/oauth/token";
     private String catalogueServiceURL = "http://zuul:8091/catalogue/";
     private String clientId = "webshop-client";
@@ -56,8 +56,7 @@ public class CatalogueConnectorImpl implements CatalogueConnector {
     @Override
     public Product addProduct(Product product) {
         OAuth2RestTemplate restTemplate = makeRestTemplate();
-        restTemplate.put(catalogueServiceURL, product, Product.class);
-        return product;
+        return (Product) restTemplate.postForObject(catalogueServiceURL, product, Product.class);
     }
     
     @Override

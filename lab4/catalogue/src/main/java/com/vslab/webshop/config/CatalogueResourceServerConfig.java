@@ -25,8 +25,8 @@ public class CatalogueResourceServerConfig extends ResourceServerConfigurerAdapt
         // @formatter:off
             http
                 .antMatcher("/catalogue/**")
-                .authorizeRequests()
-                .antMatchers("/catalogue/**").access("#oauth2.hasScope('catalogue_info')");
+                    .authorizeRequests()
+                    .anyRequest().authenticated();
         // @formatter:on
     }
 

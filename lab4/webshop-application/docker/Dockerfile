@@ -6,7 +6,7 @@ COPY ./src ./src
 RUN mvn clean package
 
 FROM tomcat:9.0
-COPY --from=builder /target/ShopWebApplication-1.0.0.war /usr/local/tomcat/webapps/
+COPY --from=builder /target/webshop-application-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
 COPY ./conf/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 
 EXPOSE 8080
